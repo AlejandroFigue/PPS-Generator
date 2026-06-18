@@ -90,7 +90,7 @@ Campos:
 * Observación Interna (opcional)
 * Usuario Generador
 * Fecha y Hora de generación
-
+* Firmante Derecho
 ---
 
 ### Tramos

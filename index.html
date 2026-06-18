@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema PPS</title>
+  <link rel="stylesheet" href="src/ui/styles.css">
+</head>
+<body>
+
+  <div class="app-layout">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <span class="brand-icon">&#9875;</span>
+        <div class="brand-text">
+          <strong>Sistema PPS</strong>
+          <small>Prefectura Naval</small>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="nav-item active" data-nav="inicio" href="#">
+          <span class="nav-icon">&#127968;</span>
+          <span class="nav-label">Inicio</span>
+        </a>
+        <a class="nav-item" data-nav="nuevo-tramite" href="#">
+          <span class="nav-icon">&#128203;</span>
+          <span class="nav-label">Nuevo Tr&aacute;mite</span>
+        </a>
+        <a class="nav-item" data-nav="historial" href="#">
+          <span class="nav-icon">&#128194;</span>
+          <span class="nav-label">Historial</span>
+        </a>
+        <div class="nav-divider"></div>
+        <a class="nav-item" data-nav="personal" href="#">
+          <span class="nav-icon">&#128101;</span>
+          <span class="nav-label">Personal</span>
+        </a>
+        <a class="nav-item" data-nav="usuarios" href="#">
+          <span class="nav-icon">&#128100;</span>
+          <span class="nav-label">Usuarios</span>
+        </a>
+        <a class="nav-item" data-nav="catalogos" href="#">
+          <span class="nav-icon">&#128193;</span>
+          <span class="nav-label">Cat&aacute;logos</span>
+        </a>
+        <div class="nav-divider"></div>
+        <a class="nav-item" data-nav="configuracion" href="#">
+          <span class="nav-icon">&#9881;</span>
+          <span class="nav-label">Configuraci&oacute;n</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <span>v1.0.0</span>
+      </div>
+    </aside>
+
+    <!-- ===== MAIN ===== -->
+    <div class="main-wrapper">
+
+      <header class="topbar">
+        <h1 class="page-title" id="page-title">Inicio</h1>
+        <div class="topbar-user">
+          <span class="user-avatar">A</span>
+          <span class="user-name">USUARIO ACTIVO</span>
+        </div>
+      </header>
+
+      <main class="content-area">
+
+        <!-- ========== VIEW: INICIO ========== -->
+        <section class="view active" id="view-inicio">
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon stat-icon--blue">&#128101;</div>
+              <div class="stat-body">
+                <div class="stat-value">&#8212;</div>
+                <div class="stat-label">Personal Activo</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon stat-icon--green">&#128100;</div>
+              <div class="stat-body">
+                <div class="stat-value">&#8212;</div>
+                <div class="stat-label">Usuarios Activos</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon stat-icon--navy">&#128203;</div>
+              <div class="stat-body">
+                <div class="stat-value">&#8212;</div>
+                <div class="stat-label">Tr&aacute;mites Generados</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">&#218;ltimos Tr&aacute;mites</h2>
+              <button class="btn btn--primary" data-nav="nuevo-tramite">+ Nuevo Tr&aacute;mite</button>
+            </div>
+            <div class="table-wrapper">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>RR</th>
+                    <th>Motivo</th>
+                    <th>Guardacostas</th>
+                    <th>Usuario</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="table-empty">
+                    <td colspan="6">No hay tr&aacute;mites registrados.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ========== VIEW: PERSONAL ========== -->
+        <section class="view" id="view-personal">
+
+          <div class="card">
+            <div class="card-header">
+              <div class="search-box">
+                <input type="text" class="input" placeholder="Buscar por nombre, DNI o jerarqu&iacute;a...">
+              </div>
+              <button class="btn btn--primary" data-modal="modal-personal">+ Agregar Personal</button>
+            </div>
+            <div class="table-wrapper">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Estado</th>
+                    <th>Jerarqu&iacute;a</th>
+                    <th>Apellido y Nombre</th>
+                    <th>DNI</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="badge badge--active">Activo</span></td>
+                    <td>OF. PRINCIPAL</td>
+                    <td>FIGUEROA ALEJANDRO GABRIEL</td>
+                    <td>32.000.000</td>
+                    <td class="actions-cell">
+                      <button class="btn btn--sm btn--secondary">Editar</button>
+                      <button class="btn btn--sm btn--danger">Inactivar</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span class="badge badge--inactive">Inactivo</span></td>
+                    <td>CABO</td>
+                    <td>GOMEZ PABLO RODRIGO</td>
+                    <td>28.500.000</td>
+                    <td class="actions-cell">
+                      <button class="btn btn--sm btn--secondary">Editar</button>
+                      <button class="btn btn--sm btn--success">Activar</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Modal: Agregar Personal -->
+          <div class="modal-backdrop" id="modal-personal" style="display:none">
+            <div class="modal">
+              <div class="modal-header">
+                <h3 class="modal-title">Agregar Personal</h3>
+                <button class="modal-close" data-close-modal="modal-personal">&#10005;</button>
+              </div>
+              <div class="modal-body">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="label">Jerarqu&iacute;a <span class="required">*</span></label>
+                    <input type="text" class="input" placeholder="Ej: OF. PRINCIPAL">
+                  </div>
+                  <div class="form-group">
+                    <label class="label">DNI <span class="required">*</span></label>
+                    <input type="text" class="input" placeholder="00.000.000">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="label">Apellido y Nombre <span class="required">*</span></label>
+                  <input type="text" class="input" placeholder="APELLIDO NOMBRE (en may&uacute;sculas)">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn--secondary" data-close-modal="modal-personal">Cancelar</button>
+                <button class="btn btn--primary">Guardar</button>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ========== VIEW: USUARIOS ========== -->
+        <section class="view" id="view-usuarios">
+
+          <div class="card">
+            <div class="card-header">
+              <div class="search-box">
+                <input type="text" class="input" placeholder="Buscar por nombre o dependencia...">
+              </div>
+              <button class="btn btn--primary" data-modal="modal-usuario">+ Agregar Usuario</button>
+            </div>
+            <div class="table-wrapper">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Estado</th>
+                    <th>Jerarqu&iacute;a</th>
+                    <th>Apellido y Nombre</th>
+                    <th>Dependencia</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="badge badge--active">Activo</span></td>
+                    <td>OF. PRINCIPAL</td>
+                    <td>FIGUEROA ALEJANDRO GABRIEL</td>
+                    <td>GFRO</td>
+                    <td class="actions-cell">
+                      <button class="btn btn--sm btn--secondary">Editar</button>
+                      <button class="btn btn--sm btn--danger">Inactivar</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Modal: Agregar Usuario -->
+          <div class="modal-backdrop" id="modal-usuario" style="display:none">
+            <div class="modal">
+              <div class="modal-header">
+                <h3 class="modal-title">Agregar Usuario</h3>
+                <button class="modal-close" data-close-modal="modal-usuario">&#10005;</button>
+              </div>
+              <div class="modal-body">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="label">Jerarqu&iacute;a <span class="required">*</span></label>
+                    <input type="text" class="input" placeholder="Ej: OF. PRINCIPAL">
+                  </div>
+                  <div class="form-group">
+                    <label class="label">Dependencia <span class="required">*</span></label>
+                    <input type="text" class="input" placeholder="Ej: GFRO">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="label">Apellido y Nombre <span class="required">*</span></label>
+                  <input type="text" class="input" placeholder="APELLIDO NOMBRE">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn--secondary" data-close-modal="modal-usuario">Cancelar</button>
+                <button class="btn btn--primary">Guardar</button>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ========== VIEW: CATÁLOGOS ========== -->
+        <section class="view" id="view-catalogos">
+
+          <div class="card">
+            <div class="tabs-bar">
+              <button class="tab-btn active" data-tab-group="cat" data-tab="motivos">Motivos</button>
+              <button class="tab-btn" data-tab-group="cat" data-tab="guardacostas">Guardacostas</button>
+              <button class="tab-btn" data-tab-group="cat" data-tab="origenes">Or&iacute;genes</button>
+              <button class="tab-btn" data-tab-group="cat" data-tab="destinos">Destinos</button>
+              <button class="tab-btn" data-tab-group="cat" data-tab="fm">FM</button>
+              <button class="tab-btn" data-tab-group="cat" data-tab="to">TO</button>
+            </div>
+
+            <!-- Tab: Motivos -->
+            <div class="tab-panel active" data-tab-group="cat" id="tab-motivos">
+              <div class="card-header">
+                <span class="text-secondary text-sm">Motivos de tr&aacute;mite</span>
+                <button class="btn btn--primary btn--sm" data-modal="modal-catalogo">+ Agregar</button>
+              </div>
+              <div class="table-wrapper">
+                <table class="table">
+                  <thead><tr><th>Estado</th><th>Descripci&oacute;n</th><th>Acciones</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="badge badge--active">Activo</span></td>
+                      <td>RELEVO TRIPULACION</td>
+                      <td class="actions-cell">
+                        <button class="btn btn--sm btn--secondary">Editar</button>
+                        <button class="btn btn--sm btn--danger">Inactivar</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge badge--active">Activo</span></td>
+                      <td>TRASLADO</td>
+                      <td class="actions-cell">
+                        <button class="btn btn--sm btn--secondary">Editar</button>
+                        <button class="btn btn--sm btn--danger">Inactivar</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge badge--inactive">Inactivo</span></td>
+                      <td>COMISION DE SERVICIO</td>
+                      <td class="actions-cell">
+                        <button class="btn btn--sm btn--secondary">Editar</button>
+                        <button class="btn btn--sm btn--success">Activar</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tab: Guardacostas -->
+            <div class="tab-panel" data-tab-group="cat" id="tab-guardacostas">
+              <div class="card-header">
+                <span class="text-secondary text-sm">Embarcaciones Guardacostas</span>
+                <button class="btn btn--primary btn--sm" data-modal="modal-catalogo">+ Agregar</button>
+              </div>
+              <div class="table-wrapper">
+                <table class="table">
+                  <thead><tr><th>Estado</th><th>Descripci&oacute;n</th><th>Acciones</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="badge badge--active">Activo</span></td>
+                      <td>GC-195 GUARANI</td>
+                      <td class="actions-cell">
+                        <button class="btn btn--sm btn--secondary">Editar</button>
+                        <button class="btn btn--sm btn--danger">Inactivar</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tab: Orígenes -->
+            <div class="tab-panel" data-tab-group="cat" id="tab-origenes">
+              <div class="card-header">
+                <span class="text-secondary text-sm">Or&iacute;genes disponibles</span>
+                <button class="btn btn--primary btn--sm" data-modal="modal-catalogo">+ Agregar</button>
+              </div>
+              <div class="table-wrapper">
+                <table class="table">
+                  <thead><tr><th>Estado</th><th>Descripci&oacute;n</th><th>Acciones</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="badge badge--active">Activo</span></td>
+                      <td>POSADAS</td>
+                      <td class="actions-cell">
+                        <button class="btn btn--sm btn--secondary">Editar</button>
+                        <button class="btn btn--sm btn--danger">Inactivar</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tab: Destinos -->
+            <div class="tab-panel" data-tab-group="cat" id="tab-destinos">
+              <div class="card-header">
+                <span class="text-secondary text-sm">Destinos disponibles</span>
+                <button class="btn btn--primary btn--sm" data-modal="modal-catalogo">+ Agregar</button>
+              </div>
+              <div class="table-wrapper">
+                <table class="table">
+                  <thead><tr><th>Estado</th><th>Descripci&oacute;n</th><th>Acciones</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="badge badge--active">Activo</span></td>
+                      <td>CORRIENTES</td>
+                      <td class="actions-cell">
+                        <button class="btn btn--sm btn--secondary">Editar</button>
+                        <button class="btn btn--sm btn--danger">Inactivar</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tab: FM -->
+            <div class="tab-panel" data-tab-group="cat" id="tab-fm">
+              <div class="card-header">
+                <span class="text-secondary text-sm">Dependencias FM</span>
+                <button class="btn btn--primary btn--sm" data-modal="modal-catalogo">+ Agregar</button>
+              </div>
+              <div class="table-wrapper">
+                <table class="table">
+                  <thead><tr><th>Estado</th><th>C&oacute;digo</th><th>Descripci&oacute;n</th><th>Acciones</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="badge badge--active">Activo</span></td>
+                      <td><strong>GFRO</strong></td>
+                      <td>JEFATURA PREFECTURA ROSARIO</td>
+                      <td class="actions-cell">
+                        <button class="btn btn--sm btn--secondary">Editar</button>
+                        <button class="btn btn--sm btn--danger">Inactivar</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tab: TO -->
+            <div class="tab-panel" data-tab-group="cat" id="tab-to">
+              <div class="card-header">
+                <span class="text-secondary text-sm">Dependencias TO</span>
+                <button class="btn btn--primary btn--sm" data-modal="modal-catalogo">+ Agregar</button>
+              </div>
+              <div class="table-wrapper">
+                <table class="table">
+                  <thead><tr><th>Estado</th><th>C&oacute;digo</th><th>Descripci&oacute;n</th><th>Acciones</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="badge badge--active">Activo</span></td>
+                      <td><strong>DPER</strong></td>
+                      <td>DIRECCION DE PERSONAL</td>
+                      <td class="actions-cell">
+                        <button class="btn btn--sm btn--secondary">Editar</button>
+                        <button class="btn btn--sm btn--danger">Inactivar</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Modal: Agregar Catálogo -->
+          <div class="modal-backdrop" id="modal-catalogo" style="display:none">
+            <div class="modal modal--sm">
+              <div class="modal-header">
+                <h3 class="modal-title">Agregar Registro</h3>
+                <button class="modal-close" data-close-modal="modal-catalogo">&#10005;</button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="label">Descripci&oacute;n <span class="required">*</span></label>
+                  <input type="text" class="input" placeholder="Texto en may&uacute;sculas">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn--secondary" data-close-modal="modal-catalogo">Cancelar</button>
+                <button class="btn btn--primary">Guardar</button>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ========== VIEW: NUEVO TRÁMITE ========== -->
+        <section class="view" id="view-nuevo-tramite">
+
+          <form class="tramite-form" id="form-tramite" novalidate>
+
+            <!-- Encabezado -->
+            <div class="form-card">
+              <div class="form-card-title">Encabezado</div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="label">RR <span class="required">*</span></label>
+                  <input type="text" class="input" id="rr" placeholder="DDHHMM/MES/YYYY" maxlength="15">
+                  <span class="field-hint">Ej: 181505/JUN/2026</span>
+                </div>
+                <div class="form-group">
+                  <label class="label">FM <span class="required">*</span></label>
+                  <select class="input select" id="fm">
+                    <option value="">Seleccionar...</option>
+                    <option>GFRO</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="label">TO <span class="required">*</span></label>
+                  <select class="input select" id="to">
+                    <option value="">Seleccionar...</option>
+                    <option>DPER</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="dper-row">
+                <div class="form-group form-group--toggle">
+                  <label class="label">Autorizaci&oacute;n DPER</label>
+                  <label class="toggle">
+                    <input type="checkbox" id="toggle-dper">
+                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                    <span class="toggle-label-text" id="toggle-dper-text">No</span>
+                  </label>
+                </div>
+                <div class="form-group" id="field-numero-dper" style="display:none">
+                  <label class="label">N&uacute;mero DPER</label>
+                  <input type="text" class="input input--narrow" id="input-dper" placeholder="000000" maxlength="6">
+                  <span class="field-hint">Exactamente 6 d&iacute;gitos num&eacute;ricos</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Datos Generales -->
+            <div class="form-card">
+              <div class="form-card-title">Datos Generales</div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="label">Motivo <span class="required">*</span></label>
+                  <select class="input select" id="motivo">
+                    <option value="">Seleccionar...</option>
+                    <option>RELEVO TRIPULACION</option>
+                    <option>TRASLADO</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="label">Guardacostas <span class="required">*</span></label>
+                  <select class="input select" id="guardacostas">
+                    <option value="">Seleccionar...</option>
+                    <option>GC-195 GUARANI</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">Observaci&oacute;n Interna <span class="optional">(opcional)</span></label>
+                <textarea class="input textarea" rows="2" placeholder="Texto libre..."></textarea>
+              </div>
+            </div>
+
+            <!-- Tramos -->
+            <div class="form-card">
+              <div class="form-card-header">
+                <div class="form-card-title">Tramos</div>
+                <button type="button" class="btn btn--secondary btn--sm">+ Agregar Tramo</button>
+              </div>
+
+              <div id="tramos-container">
+
+                <!-- Tramo 1 (ejemplo) -->
+                <div class="tramo-block">
+                  <div class="tramo-block-header">
+                    <span class="tramo-label">Tramo 1</span>
+                    <button type="button" class="btn-icon btn-icon--danger" title="Eliminar tramo">&#10005;</button>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="label">Origen <span class="required">*</span></label>
+                      <select class="input select">
+                        <option value="">Seleccionar...</option>
+                        <option>POSADAS</option>
+                        <option>CORRIENTES</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="label">Destino <span class="required">*</span></label>
+                      <select class="input select">
+                        <option value="">Seleccionar...</option>
+                        <option>POSADAS</option>
+                        <option>CORRIENTES</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="label">Sentido <span class="required">*</span></label>
+                      <select class="input select">
+                        <option value="">Seleccionar...</option>
+                        <option>IDA</option>
+                        <option>VUELTA</option>
+                        <option>IDA Y VUELTA</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Salidas del Tramo -->
+                  <div class="salidas-section">
+                    <div class="salidas-header">
+                      <span class="salidas-title">Salidas</span>
+                      <button type="button" class="btn btn--secondary btn--xs">+ Agregar Salida</button>
+                    </div>
+
+                    <div class="salidas-container">
+
+                      <!-- Salida 1 (ejemplo) -->
+                      <div class="salida-block">
+                        <div class="salida-block-header">
+                          <span class="salida-label">Salida 1</span>
+                          <button type="button" class="btn-icon btn-icon--danger" title="Eliminar salida">&#10005;</button>
+                        </div>
+                        <div class="form-row form-row--narrow">
+                          <div class="form-group">
+                            <label class="label">Fecha <span class="required">*</span></label>
+                            <input type="date" class="input">
+                          </div>
+                          <div class="form-group">
+                            <label class="label">Hora <span class="required">*</span></label>
+                            <input type="time" class="input">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="label">Pasajeros <span class="required">*</span></label>
+                          <input type="text" class="input" placeholder="Buscar pasajero por nombre o DNI...">
+                          <div class="passenger-list">
+                            <div class="passenger-tag">
+                              <span>FIGUEROA ALEJANDRO GABRIEL</span>
+                              <button type="button" class="passenger-remove" title="Quitar">&#10005;</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Resumen -->
+            <div class="resumen-card">
+              <div class="resumen-title">Resumen del Tr&aacute;mite</div>
+              <div class="resumen-grid">
+                <div class="resumen-item">
+                  <span class="resumen-label">RR</span>
+                  <strong class="resumen-value" id="res-rr">&#8212;</strong>
+                </div>
+                <div class="resumen-item">
+                  <span class="resumen-label">Motivo</span>
+                  <strong class="resumen-value" id="res-motivo">&#8212;</strong>
+                </div>
+                <div class="resumen-item">
+                  <span class="resumen-label">Guardacostas</span>
+                  <strong class="resumen-value" id="res-guardacostas">&#8212;</strong>
+                </div>
+                <div class="resumen-item">
+                  <span class="resumen-label">Tramos</span>
+                  <strong class="resumen-value" id="res-tramos">&#8212;</strong>
+                </div>
+                <div class="resumen-item">
+                  <span class="resumen-label">Pasajeros</span>
+                  <strong class="resumen-value" id="res-pasajeros">&#8212;</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Acciones -->
+            <div class="form-actions">
+              <button type="button" class="btn btn--secondary" data-nav="vista-previa">Vista Previa</button>
+              <div class="btn-split">
+                <button type="button" class="btn btn--primary btn-split-main">Generar Ambos</button>
+                <div class="btn-split-dropdown">
+                  <button type="button" class="btn btn--primary btn-split-toggle" id="btn-gen-toggle">&#9660;</button>
+                  <div class="dropdown-menu" id="dropdown-gen">
+                    <button type="button" class="dropdown-item">Generar MOI</button>
+                    <button type="button" class="dropdown-item">Generar MAIL</button>
+                    <button type="button" class="dropdown-item">Generar Ambos</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
+
+        </section>
+
+        <!-- ========== VIEW: VISTA PREVIA ========== -->
+        <section class="view" id="view-vista-previa">
+
+          <div class="preview-toolbar">
+            <button class="btn btn--secondary" data-nav="nuevo-tramite">&#8592; Volver al Tr&aacute;mite</button>
+            <div class="preview-actions">
+              <button class="btn btn--secondary">Generar MOI</button>
+              <button class="btn btn--secondary">Generar MAIL</button>
+              <button class="btn btn--primary">Generar Ambos</button>
+            </div>
+          </div>
+
+          <div class="preview-grid">
+
+            <!-- Panel MOI -->
+            <div class="preview-panel">
+              <div class="preview-panel-label">MOI &mdash; Memorando de Informaci&oacute;n Oficial</div>
+              <div class="preview-document">
+                <div class="doc-header">
+                  <div class="doc-stamp-area">
+                    <div class="doc-stamp-placeholder">
+                      <span>SELLO</span>
+                      <small>45&times;35 mm</small>
+                    </div>
+                  </div>
+                  <div class="doc-title-block">
+                    <p class="doc-institution">PREFECTURA NAVAL ARGENTINA</p>
+                    <p class="doc-subtitle">MEMORANDO DE INFORMACI&Oacute;N OFICIAL</p>
+                    <p class="doc-rr">RR: <strong>&#8212;</strong></p>
+                  </div>
+                </div>
+                <div class="doc-body">
+                  <table class="doc-table">
+                    <tr><td>FM:</td><td>&#8212;</td></tr>
+                    <tr><td>TO:</td><td>&#8212;</td></tr>
+                    <tr><td>Motivo:</td><td>&#8212;</td></tr>
+                    <tr><td>Guardacostas:</td><td>&#8212;</td></tr>
+                    <tr><td>Autorizaci&oacute;n DPER:</td><td>&#8212;</td></tr>
+                  </table>
+                  <div class="doc-section-placeholder">
+                    [ Detalle de tramos, salidas y pasajeros ]
+                  </div>
+                </div>
+                <div class="doc-footer">
+                  <div class="doc-firma-block">
+                    <div class="firma-line"></div>
+                    <p>Firma Autorizada</p>
+                    <p class="firma-cargo">Cargo</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel MAIL -->
+            <div class="preview-panel">
+              <div class="preview-panel-label">MAIL &mdash; Correo Electr&oacute;nico Oficial</div>
+              <div class="preview-document">
+                <div class="doc-header doc-header--mail">
+                  <p class="doc-institution">PREFECTURA NAVAL ARGENTINA</p>
+                  <p class="doc-subtitle">CORREO ELECTR&Oacute;NICO OFICIAL</p>
+                </div>
+                <div class="doc-body">
+                  <table class="doc-table">
+                    <tr><td>Para:</td><td>&#8212;</td></tr>
+                    <tr><td>Asunto:</td><td>PPS / RR &#8212;</td></tr>
+                    <tr><td>Motivo:</td><td>&#8212;</td></tr>
+                    <tr><td>Guardacostas:</td><td>&#8212;</td></tr>
+                  </table>
+                  <div class="doc-section-placeholder">
+                    [ Detalle de tramos, salidas y pasajeros ]
+                  </div>
+                  <div class="doc-signature-mail">
+                    <p>&#8212;</p>
+                    <p class="text-secondary text-sm">Firma Autorizada</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ========== VIEW: HISTORIAL ========== -->
+        <section class="view" id="view-historial">
+
+          <div class="card filters-card">
+            <div class="form-card-title">Filtros de B&uacute;squeda</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="label">RR</label>
+                <input type="text" class="input" placeholder="DDHHMM/MES/YYYY">
+              </div>
+              <div class="form-group">
+                <label class="label">Fecha</label>
+                <input type="date" class="input">
+              </div>
+              <div class="form-group">
+                <label class="label">Guardacostas</label>
+                <select class="input select">
+                  <option value="">Todos</option>
+                  <option>GC-195 GUARANI</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="label">Motivo</label>
+                <select class="input select">
+                  <option value="">Todos</option>
+                  <option>RELEVO TRIPULACION</option>
+                  <option>TRASLADO</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="label">Pasajero</label>
+                <input type="text" class="input" placeholder="Nombre del pasajero">
+              </div>
+              <div class="form-group">
+                <label class="label">DNI</label>
+                <input type="text" class="input" placeholder="00.000.000">
+              </div>
+              <div class="form-group">
+                <label class="label">Usuario Generador</label>
+                <input type="text" class="input" placeholder="Nombre del usuario">
+              </div>
+              <div class="form-group">
+                <label class="label">N&uacute;mero DPER</label>
+                <input type="text" class="input" placeholder="000000">
+              </div>
+            </div>
+            <div class="filter-actions">
+              <button class="btn btn--secondary">Limpiar Filtros</button>
+              <button class="btn btn--primary">Buscar</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Resultados</h2>
+              <span class="results-count text-secondary text-sm">1 resultado</span>
+            </div>
+            <div class="table-wrapper">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>RR</th>
+                    <th>Fecha</th>
+                    <th>Guardacostas</th>
+                    <th>Motivo</th>
+                    <th>Usuario</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>181505/JUN/2026</strong></td>
+                    <td>18/06/2026 15:05</td>
+                    <td>GC-195 GUARANI</td>
+                    <td>RELEVO TRIPULACION</td>
+                    <td>FIGUEROA A.</td>
+                    <td class="actions-cell">
+                      <button class="btn btn--sm btn--secondary">Ver</button>
+                      <button class="btn btn--sm btn--secondary">MOI</button>
+                      <button class="btn btn--sm btn--secondary">MAIL</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ========== VIEW: CONFIGURACIÓN ========== -->
+        <section class="view" id="view-configuracion">
+
+          <div class="config-grid">
+
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Sello Institucional</h2>
+              </div>
+              <div class="card-body">
+                <p class="text-secondary text-sm" style="margin-bottom:16px">
+                  Formato PNG. Dimensiones fijas: 45 mm &times; 35 mm.
+                </p>
+                <div class="stamp-preview-area">
+                  <div class="stamp-placeholder-box">
+                    <span>Sello</span>
+                    <small>45 mm &times; 35 mm</small>
+                  </div>
+                </div>
+                <button class="btn btn--secondary" style="margin-top:16px">Cargar imagen PNG...</button>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Datos Institucionales</h2>
+              </div>
+              <div class="card-body config-form">
+                <div class="form-group">
+                  <label class="label">Nombre de la Dependencia</label>
+                  <input type="text" class="input" placeholder="Ej: PREFECTURA POSADAS">
+                </div>
+                <div class="form-group">
+                  <label class="label">Direcci&oacute;n</label>
+                  <input type="text" class="input" placeholder="Direcci&oacute;n institucional">
+                </div>
+                <div class="form-group">
+                  <label class="label">Tel&eacute;fono</label>
+                  <input type="text" class="input" placeholder="(000) 0000-0000">
+                </div>
+                <button class="btn btn--primary">Guardar</button>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Firmas</h2>
+              </div>
+              <div class="card-body config-form">
+                <p class="text-secondary text-sm" style="margin-bottom:12px">Firma principal del documento MOI.</p>
+                <div class="form-group">
+                  <label class="label">Cargo</label>
+                  <input type="text" class="input" placeholder="Ej: JEFE DE DEPENDENCIA">
+                </div>
+                <div class="form-group">
+                  <label class="label">Apellido y Nombre</label>
+                  <input type="text" class="input" placeholder="APELLIDO NOMBRE">
+                </div>
+                <div class="config-divider"></div>
+                <p class="text-secondary text-sm" style="margin-bottom:12px">Firma secundaria (opcional).</p>
+                <div class="form-group">
+                  <label class="label">Cargo</label>
+                  <input type="text" class="input" placeholder="Ej: SECRETARIA">
+                </div>
+                <div class="form-group">
+                  <label class="label">Apellido y Nombre</label>
+                  <input type="text" class="input" placeholder="APELLIDO NOMBRE">
+                </div>
+                <button class="btn btn--primary">Guardar</button>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

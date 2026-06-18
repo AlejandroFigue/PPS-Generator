@@ -15,6 +15,10 @@
     "nombre": "ALEJANDRO GABRIEL FIGUEROA"
   },
 
+  "firmanteDerecha": {
+    "id": "USR002"
+  }
+}
   "fm": "GFRO",
 
   "to": "DPER",

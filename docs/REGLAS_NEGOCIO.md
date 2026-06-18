@@ -91,3 +91,43 @@ La generación registra:
 * Fecha
 * Hora
 * RR
+## Firmas Institucionales
+
+Formato obligatorio:
+
+Línea 1:
+Nombre y Apellido
+
+Línea 2:
+Jerarquía
+
+La jerarquía deberá mostrarse centrada horizontalmente respecto al bloque de firma.
+
+Ejemplo:
+
+ALEJANDRO GABRIEL FIGUEROA
+CABO PRIMERO
+
+Distribución:
+
+[Firma Usuario Generador] [Sello Institucional] [Firma Responsable]
+
+Aplica a:
+
+* Vista Previa
+* PDF MOI
+* PDF MAIL
+
+---
+
+## Firmantes
+
+Firma Izquierda:
+
+Siempre corresponde al Usuario Generador.
+
+Firma Derecha:
+
+Seleccionable por el usuario desde la lista de Usuarios Activos.
+
+El firmante derecho deberá quedar registrado dentro del trámite.

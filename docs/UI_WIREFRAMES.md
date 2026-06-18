@@ -108,6 +108,8 @@ Motivo
 
 Guardacostas
 
+Firmante Derecho
+
 Observación Interna (opcional)
 
 ---
