@@ -1,0 +1,16 @@
+[
+  {
+    "id": "PER001",
+    "estado": "ACTIVO",
+    "jerarquia": "SPCGGE",
+    "apellidoNombre": "MACHADO ESTEBAN HERNAN",
+    "dni": "31122330"
+  },
+  {
+    "id": "PER002",
+    "estado": "ACTIVO",
+    "jerarquia": "AICGNA",
+    "apellidoNombre": "QUINTERO JUAN CARLOS",
+    "dni": "28999888"
+  }
+]

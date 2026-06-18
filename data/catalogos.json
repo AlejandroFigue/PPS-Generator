@@ -1,0 +1,29 @@
+{
+  "motivos": [
+    "RELEVO TRIPULACION",
+    "COMISION",
+    "CURSO"
+  ],
+
+  "guardacostas": [
+    "GC-195 GUARANI"
+  ],
+
+  "origenes": [
+    "POSADAS",
+    "CORRIENTES"
+  ],
+
+  "destinos": [
+    "POSADAS",
+    "CORRIENTES"
+  ],
+
+  "fm": [
+    "GFRO"
+  ],
+
+  "to": [
+    "DPER"
+  ]
+}
