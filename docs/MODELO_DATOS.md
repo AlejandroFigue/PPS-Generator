@@ -17,8 +17,8 @@
 
   "firmanteDerecha": {
     "id": "USR002"
-  }
-}
+  },
+
   "fm": "GFRO",
 
   "to": "DPER",
