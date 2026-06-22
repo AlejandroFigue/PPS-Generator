@@ -1,29 +1,24 @@
 {
   "motivos": [
-    "RELEVO TRIPULACION",
-    "COMISION",
-    "CURSO"
+    { "id": "MOT001", "estado": "ACTIVO", "descripcion": "RELEVO TRIPULACION" },
+    { "id": "MOT002", "estado": "ACTIVO", "descripcion": "COMISION" },
+    { "id": "MOT003", "estado": "ACTIVO", "descripcion": "CURSO" }
   ],
-
   "guardacostas": [
-    "GC-195 GUARANI"
+    { "id": "GC001", "estado": "ACTIVO", "descripcion": "GC-195 GUARANI" }
   ],
-
   "origenes": [
-    "POSADAS",
-    "CORRIENTES"
+    { "id": "ORI001", "estado": "ACTIVO", "descripcion": "POSADAS" },
+    { "id": "ORI002", "estado": "ACTIVO", "descripcion": "CORRIENTES" }
   ],
-
   "destinos": [
-    "POSADAS",
-    "CORRIENTES"
+    { "id": "DES001", "estado": "ACTIVO", "descripcion": "POSADAS" },
+    { "id": "DES002", "estado": "ACTIVO", "descripcion": "CORRIENTES" }
   ],
-
   "fm": [
-    "GFRO"
+    { "id": "FM001", "estado": "ACTIVO", "codigo": "GFRO", "descripcion": "JEFATURA PREFECTURA POSADAS" }
   ],
-
   "to": [
-    "DPER"
+    { "id": "TO001", "estado": "ACTIVO", "codigo": "DPER", "descripcion": "DIRECCION DE PERSONAL" }
   ]
 }

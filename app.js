@@ -110,3 +110,69 @@ document.querySelectorAll('.modal-backdrop').forEach(function(backdrop) {
     if (e.target === backdrop) backdrop.style.display = 'none';
   });
 });
+
+/* ── Inicialización ───────────────────────────────────────── */
+(function init() {
+  Promise.all([
+    personalModule.cargar(),
+    usuariosModule.cargar(),
+    catalogosModule.cargar()
+  ]).catch(function (err) {
+    console.error('Error al inicializar:', err);
+    alert('No se pudo conectar con el servidor.\nEjecute: node server.js');
+  });
+
+  /* Personal */
+  document.getElementById('btn-agregar-personal')
+    .addEventListener('click', function () { personalModule.abrirAlta(); });
+
+  document.getElementById('btn-per-guardar')
+    .addEventListener('click', function () {
+      var editId = document.getElementById('per-edit-id').value;
+      var campos = {
+        jerarquia:      document.getElementById('per-jerarquia').value,
+        apellidoNombre: document.getElementById('per-apellido-nombre').value,
+        dni:            document.getElementById('per-dni').value
+      };
+      var op = editId ? personalModule.editar(editId, campos) : personalModule.agregar(campos);
+      op.then(function () {
+        document.getElementById('modal-personal').style.display = 'none';
+      }).catch(function (err) { alert(err.message); });
+    });
+
+  document.getElementById('search-personal')
+    .addEventListener('input', function () { personalModule.filtrar(this.value); });
+
+  /* Usuarios */
+  document.getElementById('btn-agregar-usuario')
+    .addEventListener('click', function () { usuariosModule.abrirAlta(); });
+
+  document.getElementById('btn-usr-guardar')
+    .addEventListener('click', function () {
+      var editId = document.getElementById('usr-edit-id').value;
+      var campos = {
+        jerarquia:      document.getElementById('usr-jerarquia').value,
+        apellidoNombre: document.getElementById('usr-apellido-nombre').value,
+        dependencia:    document.getElementById('usr-dependencia').value
+      };
+      var op = editId ? usuariosModule.editar(editId, campos) : usuariosModule.agregar(campos);
+      op.then(function () {
+        document.getElementById('modal-usuario').style.display = 'none';
+      }).catch(function (err) { alert(err.message); });
+    });
+
+  document.getElementById('search-usuarios')
+    .addEventListener('input', function () { usuariosModule.filtrar(this.value); });
+
+  /* Catálogos */
+  document.querySelectorAll('[data-cat-agregar]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      catalogosModule.abrirAlta(this.dataset.catAgregar);
+    });
+  });
+
+  document.getElementById('btn-cat-guardar')
+    .addEventListener('click', function () {
+      catalogosModule.guardar().catch(function (err) { alert(err.message); });
+    });
+})();

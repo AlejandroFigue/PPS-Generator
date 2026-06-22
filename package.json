@@ -1,0 +1,9 @@
+{
+  "name": "pps-generator",
+  "version": "1.0.0",
+  "description": "Sistema PPS - Generador de documentacion institucional",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

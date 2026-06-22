@@ -78,14 +78,14 @@
             <div class="stat-card">
               <div class="stat-icon stat-icon--blue">&#128101;</div>
               <div class="stat-body">
-                <div class="stat-value">&#8212;</div>
+                <div class="stat-value" id="stat-personal-activo">&#8212;</div>
                 <div class="stat-label">Personal Activo</div>
               </div>
             </div>
             <div class="stat-card">
               <div class="stat-icon stat-icon--green">&#128100;</div>
               <div class="stat-body">
-                <div class="stat-value">&#8212;</div>
+                <div class="stat-value" id="stat-usuarios-activos">&#8212;</div>
                 <div class="stat-label">Usuarios Activos</div>
               </div>
             </div>
@@ -132,9 +132,9 @@
           <div class="card">
             <div class="card-header">
               <div class="search-box">
-                <input type="text" class="input" placeholder="Buscar por nombre, DNI o jerarqu&iacute;a...">
+                <input type="text" class="input" id="search-personal" placeholder="Buscar por nombre, DNI o jerarqu&iacute;a...">
               </div>
-              <button class="btn btn--primary" data-modal="modal-personal">+ Agregar Personal</button>
+              <button class="btn btn--primary" id="btn-agregar-personal">+ Agregar Personal</button>
             </div>
             <div class="table-wrapper">
               <table class="table">
@@ -147,58 +147,42 @@
                     <th>Acciones</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="badge badge--active">Activo</span></td>
-                    <td>OF. PRINCIPAL</td>
-                    <td>FIGUEROA ALEJANDRO GABRIEL</td>
-                    <td>32.000.000</td>
-                    <td class="actions-cell">
-                      <button class="btn btn--sm btn--secondary">Editar</button>
-                      <button class="btn btn--sm btn--danger">Inactivar</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><span class="badge badge--inactive">Inactivo</span></td>
-                    <td>CABO</td>
-                    <td>GOMEZ PABLO RODRIGO</td>
-                    <td>28.500.000</td>
-                    <td class="actions-cell">
-                      <button class="btn btn--sm btn--secondary">Editar</button>
-                      <button class="btn btn--sm btn--success">Activar</button>
-                    </td>
+                <tbody id="tbody-personal">
+                  <tr class="table-empty">
+                    <td colspan="5">Cargando...</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
 
-          <!-- Modal: Agregar Personal -->
+          <!-- Modal: Agregar / Editar Personal -->
           <div class="modal-backdrop" id="modal-personal" style="display:none">
             <div class="modal">
               <div class="modal-header">
-                <h3 class="modal-title">Agregar Personal</h3>
+                <h3 class="modal-title" id="per-modal-title">Agregar Personal</h3>
                 <button class="modal-close" data-close-modal="modal-personal">&#10005;</button>
               </div>
               <div class="modal-body">
+                <input type="hidden" id="per-edit-id">
                 <div class="form-row">
                   <div class="form-group">
                     <label class="label">Jerarqu&iacute;a <span class="required">*</span></label>
-                    <input type="text" class="input" placeholder="Ej: OF. PRINCIPAL">
+                    <input type="text" class="input" id="per-jerarquia" placeholder="Ej: OF. PRINCIPAL">
                   </div>
                   <div class="form-group">
                     <label class="label">DNI <span class="required">*</span></label>
-                    <input type="text" class="input" placeholder="00.000.000">
+                    <input type="text" class="input" id="per-dni" placeholder="00000000">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="label">Apellido y Nombre <span class="required">*</span></label>
-                  <input type="text" class="input" placeholder="APELLIDO NOMBRE (en may&uacute;sculas)">
+                  <input type="text" class="input" id="per-apellido-nombre" placeholder="APELLIDO NOMBRE (en may&uacute;sculas)">
                 </div>
               </div>
               <div class="modal-footer">
                 <button class="btn btn--secondary" data-close-modal="modal-personal">Cancelar</button>
-                <button class="btn btn--primary">Guardar</button>
+                <button class="btn btn--primary" id="btn-per-guardar">Guardar</button>
               </div>
             </div>
           </div>
@@ -211,9 +195,9 @@
           <div class="card">
             <div class="card-header">
               <div class="search-box">
-                <input type="text" class="input" placeholder="Buscar por nombre o dependencia...">
+                <input type="text" class="input" id="search-usuarios" placeholder="Buscar por nombre o dependencia...">
               </div>
-              <button class="btn btn--primary" data-modal="modal-usuario">+ Agregar Usuario</button>
+              <button class="btn btn--primary" id="btn-agregar-usuario">+ Agregar Usuario</button>
             </div>
             <div class="table-wrapper">
               <table class="table">
@@ -226,48 +210,42 @@
                     <th>Acciones</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="badge badge--active">Activo</span></td>
-                    <td>OF. PRINCIPAL</td>
-                    <td>FIGUEROA ALEJANDRO GABRIEL</td>
-                    <td>GFRO</td>
-                    <td class="actions-cell">
-                      <button class="btn btn--sm btn--secondary">Editar</button>
-                      <button class="btn btn--sm btn--danger">Inactivar</button>
-                    </td>
+                <tbody id="tbody-usuarios">
+                  <tr class="table-empty">
+                    <td colspan="5">Cargando...</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
 
-          <!-- Modal: Agregar Usuario -->
+          <!-- Modal: Agregar / Editar Usuario -->
           <div class="modal-backdrop" id="modal-usuario" style="display:none">
             <div class="modal">
               <div class="modal-header">
-                <h3 class="modal-title">Agregar Usuario</h3>
+                <h3 class="modal-title" id="usr-modal-title">Agregar Usuario</h3>
                 <button class="modal-close" data-close-modal="modal-usuario">&#10005;</button>
               </div>
               <div class="modal-body">
+                <input type="hidden" id="usr-edit-id">
                 <div class="form-row">
                   <div class="form-group">
                     <label class="label">Jerarqu&iacute;a <span class="required">*</span></label>
-                    <input type="text" class="input" placeholder="Ej: OF. PRINCIPAL">
+                    <input type="text" class="input" id="usr-jerarquia" placeholder="Ej: OF. PRINCIPAL">
                   </div>
                   <div class="form-group">
                     <label class="label">Dependencia <span class="required">*</span></label>
-                    <input type="text" class="input" placeholder="Ej: GFRO">
+                    <input type="text" class="input" id="usr-dependencia" placeholder="Ej: GFRO">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="label">Apellido y Nombre <span class="required">*</span></label>
-                  <input type="text" class="input" placeholder="APELLIDO NOMBRE">
+                  <input type="text" class="input" id="usr-apellido-nombre" placeholder="APELLIDO NOMBRE">
                 </div>
               </div>
               <div class="modal-footer">
                 <button class="btn btn--secondary" data-close-modal="modal-usuario">Cancelar</button>
-                <button class="btn btn--primary">Guardar</button>
+                <button class="btn btn--primary" id="btn-usr-guardar">Guardar</button>
               </div>
             </div>
           </div>
@@ -291,36 +269,13 @@
             <div class="tab-panel active" data-tab-group="cat" id="tab-motivos">
               <div class="card-header">
                 <span class="text-secondary text-sm">Motivos de tr&aacute;mite</span>
-                <button class="btn btn--primary btn--sm" data-modal="modal-catalogo">+ Agregar</button>
+                <button class="btn btn--primary btn--sm" data-cat-agregar="motivos">+ Agregar</button>
               </div>
               <div class="table-wrapper">
                 <table class="table">
                   <thead><tr><th>Estado</th><th>Descripci&oacute;n</th><th>Acciones</th></tr></thead>
-                  <tbody>
-                    <tr>
-                      <td><span class="badge badge--active">Activo</span></td>
-                      <td>RELEVO TRIPULACION</td>
-                      <td class="actions-cell">
-                        <button class="btn btn--sm btn--secondary">Editar</button>
-                        <button class="btn btn--sm btn--danger">Inactivar</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><span class="badge badge--active">Activo</span></td>
-                      <td>TRASLADO</td>
-                      <td class="actions-cell">
-                        <button class="btn btn--sm btn--secondary">Editar</button>
-                        <button class="btn btn--sm btn--danger">Inactivar</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><span class="badge badge--inactive">Inactivo</span></td>
-                      <td>COMISION DE SERVICIO</td>
-                      <td class="actions-cell">
-                        <button class="btn btn--sm btn--secondary">Editar</button>
-                        <button class="btn btn--sm btn--success">Activar</button>
-                      </td>
-                    </tr>
+                  <tbody id="tbody-motivos">
+                    <tr class="table-empty"><td colspan="3">Cargando...</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -330,20 +285,13 @@
             <div class="tab-panel" data-tab-group="cat" id="tab-guardacostas">
               <div class="card-header">
                 <span class="text-secondary text-sm">Embarcaciones Guardacostas</span>
-                <button class="btn btn--primary btn--sm" data-modal="modal-catalogo">+ Agregar</button>
+                <button class="btn btn--primary btn--sm" data-cat-agregar="guardacostas">+ Agregar</button>
               </div>
               <div class="table-wrapper">
                 <table class="table">
                   <thead><tr><th>Estado</th><th>Descripci&oacute;n</th><th>Acciones</th></tr></thead>
-                  <tbody>
-                    <tr>
-                      <td><span class="badge badge--active">Activo</span></td>
-                      <td>GC-195 GUARANI</td>
-                      <td class="actions-cell">
-                        <button class="btn btn--sm btn--secondary">Editar</button>
-                        <button class="btn btn--sm btn--danger">Inactivar</button>
-                      </td>
-                    </tr>
+                  <tbody id="tbody-guardacostas">
+                    <tr class="table-empty"><td colspan="3">Cargando...</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -353,20 +301,13 @@
             <div class="tab-panel" data-tab-group="cat" id="tab-origenes">
               <div class="card-header">
                 <span class="text-secondary text-sm">Or&iacute;genes disponibles</span>
-                <button class="btn btn--primary btn--sm" data-modal="modal-catalogo">+ Agregar</button>
+                <button class="btn btn--primary btn--sm" data-cat-agregar="origenes">+ Agregar</button>
               </div>
               <div class="table-wrapper">
                 <table class="table">
                   <thead><tr><th>Estado</th><th>Descripci&oacute;n</th><th>Acciones</th></tr></thead>
-                  <tbody>
-                    <tr>
-                      <td><span class="badge badge--active">Activo</span></td>
-                      <td>POSADAS</td>
-                      <td class="actions-cell">
-                        <button class="btn btn--sm btn--secondary">Editar</button>
-                        <button class="btn btn--sm btn--danger">Inactivar</button>
-                      </td>
-                    </tr>
+                  <tbody id="tbody-origenes">
+                    <tr class="table-empty"><td colspan="3">Cargando...</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -376,20 +317,13 @@
             <div class="tab-panel" data-tab-group="cat" id="tab-destinos">
               <div class="card-header">
                 <span class="text-secondary text-sm">Destinos disponibles</span>
-                <button class="btn btn--primary btn--sm" data-modal="modal-catalogo">+ Agregar</button>
+                <button class="btn btn--primary btn--sm" data-cat-agregar="destinos">+ Agregar</button>
               </div>
               <div class="table-wrapper">
                 <table class="table">
                   <thead><tr><th>Estado</th><th>Descripci&oacute;n</th><th>Acciones</th></tr></thead>
-                  <tbody>
-                    <tr>
-                      <td><span class="badge badge--active">Activo</span></td>
-                      <td>CORRIENTES</td>
-                      <td class="actions-cell">
-                        <button class="btn btn--sm btn--secondary">Editar</button>
-                        <button class="btn btn--sm btn--danger">Inactivar</button>
-                      </td>
-                    </tr>
+                  <tbody id="tbody-destinos">
+                    <tr class="table-empty"><td colspan="3">Cargando...</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -399,21 +333,13 @@
             <div class="tab-panel" data-tab-group="cat" id="tab-fm">
               <div class="card-header">
                 <span class="text-secondary text-sm">Dependencias FM</span>
-                <button class="btn btn--primary btn--sm" data-modal="modal-catalogo">+ Agregar</button>
+                <button class="btn btn--primary btn--sm" data-cat-agregar="fm">+ Agregar</button>
               </div>
               <div class="table-wrapper">
                 <table class="table">
                   <thead><tr><th>Estado</th><th>C&oacute;digo</th><th>Descripci&oacute;n</th><th>Acciones</th></tr></thead>
-                  <tbody>
-                    <tr>
-                      <td><span class="badge badge--active">Activo</span></td>
-                      <td><strong>GFRO</strong></td>
-                      <td>JEFATURA PREFECTURA ROSARIO</td>
-                      <td class="actions-cell">
-                        <button class="btn btn--sm btn--secondary">Editar</button>
-                        <button class="btn btn--sm btn--danger">Inactivar</button>
-                      </td>
-                    </tr>
+                  <tbody id="tbody-fm">
+                    <tr class="table-empty"><td colspan="4">Cargando...</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -423,21 +349,13 @@
             <div class="tab-panel" data-tab-group="cat" id="tab-to">
               <div class="card-header">
                 <span class="text-secondary text-sm">Dependencias TO</span>
-                <button class="btn btn--primary btn--sm" data-modal="modal-catalogo">+ Agregar</button>
+                <button class="btn btn--primary btn--sm" data-cat-agregar="to">+ Agregar</button>
               </div>
               <div class="table-wrapper">
                 <table class="table">
                   <thead><tr><th>Estado</th><th>C&oacute;digo</th><th>Descripci&oacute;n</th><th>Acciones</th></tr></thead>
-                  <tbody>
-                    <tr>
-                      <td><span class="badge badge--active">Activo</span></td>
-                      <td><strong>DPER</strong></td>
-                      <td>DIRECCION DE PERSONAL</td>
-                      <td class="actions-cell">
-                        <button class="btn btn--sm btn--secondary">Editar</button>
-                        <button class="btn btn--sm btn--danger">Inactivar</button>
-                      </td>
-                    </tr>
+                  <tbody id="tbody-to">
+                    <tr class="table-empty"><td colspan="4">Cargando...</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -445,22 +363,28 @@
 
           </div>
 
-          <!-- Modal: Agregar Catálogo -->
+          <!-- Modal: Agregar / Editar Catálogo -->
           <div class="modal-backdrop" id="modal-catalogo" style="display:none">
             <div class="modal modal--sm">
               <div class="modal-header">
-                <h3 class="modal-title">Agregar Registro</h3>
+                <h3 class="modal-title" id="cat-modal-title">Agregar Registro</h3>
                 <button class="modal-close" data-close-modal="modal-catalogo">&#10005;</button>
               </div>
               <div class="modal-body">
+                <input type="hidden" id="cat-edit-id">
+                <input type="hidden" id="cat-tipo">
+                <div class="form-group" id="field-cat-codigo" style="display:none">
+                  <label class="label">C&oacute;digo <span class="required">*</span></label>
+                  <input type="text" class="input" id="cat-codigo" placeholder="Ej: GFRO">
+                </div>
                 <div class="form-group">
                   <label class="label">Descripci&oacute;n <span class="required">*</span></label>
-                  <input type="text" class="input" placeholder="Texto en may&uacute;sculas">
+                  <input type="text" class="input" id="cat-descripcion" placeholder="Texto en may&uacute;sculas">
                 </div>
               </div>
               <div class="modal-footer">
                 <button class="btn btn--secondary" data-close-modal="modal-catalogo">Cancelar</button>
-                <button class="btn btn--primary">Guardar</button>
+                <button class="btn btn--primary" id="btn-cat-guardar">Guardar</button>
               </div>
             </div>
           </div>
@@ -815,7 +739,7 @@
           <div class="card">
             <div class="card-header">
               <h2 class="card-title">Resultados</h2>
-              <span class="results-count text-secondary text-sm">1 resultado</span>
+              <span class="results-count text-secondary text-sm">0 resultados</span>
             </div>
             <div class="table-wrapper">
               <table class="table">
@@ -830,17 +754,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td><strong>181505/JUN/2026</strong></td>
-                    <td>18/06/2026 15:05</td>
-                    <td>GC-195 GUARANI</td>
-                    <td>RELEVO TRIPULACION</td>
-                    <td>FIGUEROA A.</td>
-                    <td class="actions-cell">
-                      <button class="btn btn--sm btn--secondary">Ver</button>
-                      <button class="btn btn--sm btn--secondary">MOI</button>
-                      <button class="btn btn--sm btn--secondary">MAIL</button>
-                    </td>
+                  <tr class="table-empty">
+                    <td colspan="6">No hay tr&aacute;mites registrados.</td>
                   </tr>
                 </tbody>
               </table>
@@ -929,6 +844,14 @@
     </div>
   </div>
 
+  <script src="src/utils/utils.js"></script>
+  <script src="src/storage/api.js"></script>
+  <script src="src/storage/personalStorage.js"></script>
+  <script src="src/storage/usuariosStorage.js"></script>
+  <script src="src/storage/catalogosStorage.js"></script>
+  <script src="src/modules/personalModule.js"></script>
+  <script src="src/modules/usuariosModule.js"></script>
+  <script src="src/modules/catalogosModule.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

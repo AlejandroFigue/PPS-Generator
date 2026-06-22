@@ -52,3 +52,13 @@ La aplicación deberá poder copiarse completamente a otra PC manteniendo:
 * Catálogos
 * Historial
 * Trámites
+
+### Conservación de backups
+
+El servidor genera un backup automático antes de cada escritura (`PUT /api/{recurso}`).
+
+Nombre del archivo: `{recurso}_{YYYY-MM-DD_HH-MM-SS}.json`  
+Ubicación: `data/backups/`
+
+Los backups se conservan sin límite ni rotación automática.  
+La purga manual o rotación automática será evaluada en versiones futuras.
