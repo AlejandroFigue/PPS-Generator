@@ -1,13 +1,13 @@
 [
   {
     "id": "TRA1782159655637",
-    "rr": "221617/JUN/2026",
+    "rr": "221615/JUN/2026",
     "fm": "GFRO",
     "to": "DPER",
     "motivo": "RELEVO TRIPULACION",
     "guardacostas": "GC-195 GUARANI",
     "autorizadoDper": true,
-    "numeroDper": "191107",
+    "numeroDper": "191102",
     "observacionInterna": "",
     "usuarioGeneradorId": "USR001",
     "usuarioFirmanteId": "USR001",
@@ -16,10 +16,10 @@
     "tramos": [
       {
         "id": "TRAMO1782159372865",
-        "origen": "CORRIENTES",
-        "destino": "POSADAS",
+        "origen": "POSADAS",
+        "destino": "CORRIENTES",
         "sentido": "IDA",
-        "fecha": "2026-06-25",
+        "fecha": "2026-06-23",
         "hora": "16:50",
         "pasajeros": [
           {

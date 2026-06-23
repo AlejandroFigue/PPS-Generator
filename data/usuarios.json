@@ -1,9 +1,53 @@
 [
   {
+    "id": "USR000",
+    "estado": "ACTIVO",
+    "jerarquia": "ADMIN",
+    "apellidoNombre": "ADMIN SISTEMA",
+    "dependencia": "SISTEMA",
+    "dni": "34802771",
+    "rol": "ADMINISTRADOR",
+    "passwordHash": "7e071fd9b023ed8f18458a73613a0834f6220bd5cc50357ba3493c6040a9ea8c",
+    "requiereCambioPassword": false,
+    "bloqueado": false,
+    "intentosFallidos": 0,
+    "fechaBloqueo": null,
+    "bloqueadoPor": null,
+    "ultimoLogin": null,
+    "ultimoLogout": null
+  },
+  {
     "id": "USR001",
     "estado": "ACTIVO",
-    "jerarquia": "CABO PRIMERO",
-    "apellidoNombre": "ALEJANDRO GABRIEL FIGUEROA",
-    "dependencia": "DEPARTAMENTO GUARDACOSTAS DE FRONTERA"
+    "jerarquia": "CI",
+    "apellidoNombre": "ALEJANDRO FIGUEROA",
+    "dependencia": "GFRO",
+    "dni": "",
+    "rol": "OPERADOR",
+    "passwordHash": "",
+    "requiereCambioPassword": true,
+    "bloqueado": false,
+    "intentosFallidos": 0,
+    "fechaBloqueo": null,
+    "bloqueadoPor": null,
+    "ultimoLogin": null,
+    "ultimoLogout": null
+  },
+  {
+    "id": "USR002",
+    "estado": "ACTIVO",
+    "jerarquia": "CI",
+    "apellidoNombre": "FICHER FERNANDO",
+    "dependencia": "GFRO",
+    "dni": "",
+    "rol": "OPERADOR",
+    "passwordHash": "",
+    "requiereCambioPassword": true,
+    "bloqueado": false,
+    "intentosFallidos": 0,
+    "fechaBloqueo": null,
+    "bloqueadoPor": null,
+    "ultimoLogin": null,
+    "ultimoLogout": null
   }
 ]

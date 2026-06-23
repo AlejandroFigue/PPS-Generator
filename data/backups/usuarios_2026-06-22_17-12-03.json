@@ -1,0 +1,16 @@
+[
+  {
+    "id": "USR001",
+    "estado": "ACTIVO",
+    "jerarquia": "CABO PRIMERO",
+    "apellidoNombre": "ALEJANDRO GABRIEL FIGUEROA",
+    "dependencia": "DEPARTAMENTO GUARDACOSTAS DE FRONTERA"
+  },
+  {
+    "id": "USR002",
+    "estado": "ACTIVO",
+    "jerarquia": "CI",
+    "apellidoNombre": "FICHER FERNANDO",
+    "dependencia": "GFRO"
+  }
+]

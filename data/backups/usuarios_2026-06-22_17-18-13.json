@@ -1,0 +1,16 @@
+[
+  {
+    "id": "USR001",
+    "estado": "INACTIVO",
+    "jerarquia": "CI",
+    "apellidoNombre": "ALEJANDRO FIGUEROA",
+    "dependencia": "GFRO"
+  },
+  {
+    "id": "USR002",
+    "estado": "ACTIVO",
+    "jerarquia": "CI",
+    "apellidoNombre": "FICHER FERNANDO",
+    "dependencia": "GFRO"
+  }
+]

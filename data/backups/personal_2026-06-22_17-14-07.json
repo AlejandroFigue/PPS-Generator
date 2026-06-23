@@ -3,15 +3,15 @@
     "id": "PER001",
     "estado": "ACTIVO",
     "jerarquia": "SPCGGE",
-    "apellidoNombre": "MACHADO ESTEBAN",
-    "dni": "31.122.330"
+    "apellidoNombre": "MACHADO ESTEBAN HERNAN",
+    "dni": "31122330"
   },
   {
     "id": "PER002",
     "estado": "ACTIVO",
     "jerarquia": "AICGNA",
-    "apellidoNombre": "QUINTERO JUAN",
-    "dni": "28.999.888"
+    "apellidoNombre": "QUINTERO JUAN CARLOS",
+    "dni": "28999888"
   },
   {
     "id": "PER003",

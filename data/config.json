@@ -1,0 +1,5 @@
+{
+  "sessionTimeoutMinutes": 60,
+  "warningBeforeTimeoutMinutes": 5,
+  "maxLoginAttempts": 5
+}

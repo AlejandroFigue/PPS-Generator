@@ -64,8 +64,9 @@
       <header class="topbar">
         <h1 class="page-title" id="page-title">Inicio</h1>
         <div class="topbar-user">
-          <span class="user-avatar">A</span>
-          <span class="user-name">USUARIO ACTIVO</span>
+          <span class="user-avatar" id="topbar-user-avatar">?</span>
+          <span class="user-name" id="topbar-user-name">SIN INICIAR SESI&Oacute;N</span>
+          <button class="btn btn--logout" id="btn-logout" style="display:none">Cerrar Sesi&oacute;n</button>
         </div>
       </header>
 
@@ -92,7 +93,7 @@
             <div class="stat-card">
               <div class="stat-icon stat-icon--navy">&#128203;</div>
               <div class="stat-body">
-                <div class="stat-value">&#8212;</div>
+                <div class="stat-value" id="stat-tramites">&#8212;</div>
                 <div class="stat-label">Tr&aacute;mites Generados</div>
               </div>
             </div>
@@ -101,7 +102,7 @@
           <div class="card">
             <div class="card-header">
               <h2 class="card-title">&#218;ltimos Tr&aacute;mites</h2>
-              <button class="btn btn--primary" data-nav="nuevo-tramite">+ Nuevo Tr&aacute;mite</button>
+              <button class="btn btn--primary" id="btn-inicio-nuevo-tramite">+ Nuevo Tr&aacute;mite</button>
             </div>
             <div class="table-wrapper">
               <table class="table">
@@ -115,7 +116,7 @@
                     <th>Acciones</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="tbody-inicio-tramites">
                   <tr class="table-empty">
                     <td colspan="6">No hay tr&aacute;mites registrados.</td>
                   </tr>
@@ -234,13 +235,26 @@
                     <input type="text" class="input" id="usr-jerarquia" placeholder="Ej: OF. PRINCIPAL">
                   </div>
                   <div class="form-group">
-                    <label class="label">Dependencia <span class="required">*</span></label>
-                    <input type="text" class="input" id="usr-dependencia" placeholder="Ej: GFRO">
+                    <label class="label">DNI <span class="required">*</span></label>
+                    <input type="text" class="input" id="usr-dni" placeholder="00000000" maxlength="8">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="label">Apellido y Nombre <span class="required">*</span></label>
                   <input type="text" class="input" id="usr-apellido-nombre" placeholder="APELLIDO NOMBRE">
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="label">Dependencia <span class="required">*</span></label>
+                    <input type="text" class="input" id="usr-dependencia" placeholder="Ej: GFRO">
+                  </div>
+                  <div class="form-group">
+                    <label class="label">Rol <span class="required">*</span></label>
+                    <select class="input" id="usr-rol">
+                      <option value="OPERADOR">Operador</option>
+                      <option value="ADMINISTRADOR">Administrador</option>
+                    </select>
+                  </div>
                 </div>
               </div>
               <div class="modal-footer">
@@ -445,23 +459,26 @@
               <div class="form-row">
                 <div class="form-group">
                   <label class="label">Motivo <span class="required">*</span></label>
-                  <select class="input select" id="motivo">
+                  <select class="input" id="motivo">
                     <option value="">Seleccionar...</option>
-                    <option>RELEVO TRIPULACION</option>
-                    <option>TRASLADO</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label class="label">Guardacostas <span class="required">*</span></label>
-                  <select class="input select" id="guardacostas">
+                  <select class="input" id="guardacostas">
                     <option value="">Seleccionar...</option>
-                    <option>GC-195 GUARANI</option>
                   </select>
                 </div>
               </div>
               <div class="form-group">
+                <label class="label">Firmante Derecho <span class="required">*</span></label>
+                <select class="input" id="firmante-derecho">
+                  <option value="">Seleccionar...</option>
+                </select>
+              </div>
+              <div class="form-group">
                 <label class="label">Observaci&oacute;n Interna <span class="optional">(opcional)</span></label>
-                <textarea class="input textarea" rows="2" placeholder="Texto libre..."></textarea>
+                <textarea class="input textarea" id="observacion-interna" rows="2" placeholder="Texto libre..."></textarea>
               </div>
             </div>
 
@@ -469,87 +486,10 @@
             <div class="form-card">
               <div class="form-card-header">
                 <div class="form-card-title">Tramos</div>
-                <button type="button" class="btn btn--secondary btn--sm">+ Agregar Tramo</button>
+                <button type="button" class="btn btn--secondary btn--sm" id="btn-agregar-tramo">+ Agregar Tramo</button>
               </div>
 
-              <div id="tramos-container">
-
-                <!-- Tramo 1 (ejemplo) -->
-                <div class="tramo-block">
-                  <div class="tramo-block-header">
-                    <span class="tramo-label">Tramo 1</span>
-                    <button type="button" class="btn-icon btn-icon--danger" title="Eliminar tramo">&#10005;</button>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label class="label">Origen <span class="required">*</span></label>
-                      <select class="input select">
-                        <option value="">Seleccionar...</option>
-                        <option>POSADAS</option>
-                        <option>CORRIENTES</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label class="label">Destino <span class="required">*</span></label>
-                      <select class="input select">
-                        <option value="">Seleccionar...</option>
-                        <option>POSADAS</option>
-                        <option>CORRIENTES</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label class="label">Sentido <span class="required">*</span></label>
-                      <select class="input select">
-                        <option value="">Seleccionar...</option>
-                        <option>IDA</option>
-                        <option>VUELTA</option>
-                        <option>IDA Y VUELTA</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <!-- Salidas del Tramo -->
-                  <div class="salidas-section">
-                    <div class="salidas-header">
-                      <span class="salidas-title">Salidas</span>
-                      <button type="button" class="btn btn--secondary btn--xs">+ Agregar Salida</button>
-                    </div>
-
-                    <div class="salidas-container">
-
-                      <!-- Salida 1 (ejemplo) -->
-                      <div class="salida-block">
-                        <div class="salida-block-header">
-                          <span class="salida-label">Salida 1</span>
-                          <button type="button" class="btn-icon btn-icon--danger" title="Eliminar salida">&#10005;</button>
-                        </div>
-                        <div class="form-row form-row--narrow">
-                          <div class="form-group">
-                            <label class="label">Fecha <span class="required">*</span></label>
-                            <input type="date" class="input">
-                          </div>
-                          <div class="form-group">
-                            <label class="label">Hora <span class="required">*</span></label>
-                            <input type="time" class="input">
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label class="label">Pasajeros <span class="required">*</span></label>
-                          <input type="text" class="input" placeholder="Buscar pasajero por nombre o DNI...">
-                          <div class="passenger-list">
-                            <div class="passenger-tag">
-                              <span>FIGUEROA ALEJANDRO GABRIEL</span>
-                              <button type="button" class="passenger-remove" title="Quitar">&#10005;</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-
-              </div>
+              <div id="tramos-container"></div>
             </div>
 
             <!-- Resumen -->
@@ -581,15 +521,17 @@
 
             <!-- Acciones -->
             <div class="form-actions">
-              <button type="button" class="btn btn--secondary" data-nav="vista-previa">Vista Previa</button>
+              <button type="button" class="btn btn--secondary" id="btn-tramite-nuevo">Limpiar</button>
+              <button type="button" class="btn btn--secondary" id="btn-vista-previa">Vista Previa</button>
+              <button type="button" class="btn btn--primary"   id="btn-tramite-guardar">Guardar</button>
               <div class="btn-split">
-                <button type="button" class="btn btn--primary btn-split-main">Generar Ambos</button>
+                <button type="button" class="btn btn--primary btn-split-main" id="btn-generar-ambos">Generar Ambos</button>
                 <div class="btn-split-dropdown">
                   <button type="button" class="btn btn--primary btn-split-toggle" id="btn-gen-toggle">&#9660;</button>
                   <div class="dropdown-menu" id="dropdown-gen">
-                    <button type="button" class="dropdown-item">Generar MOI</button>
-                    <button type="button" class="dropdown-item">Generar MAIL</button>
-                    <button type="button" class="dropdown-item">Generar Ambos</button>
+                    <button type="button" class="dropdown-item" id="btn-gen-moi">Generar MOI</button>
+                    <button type="button" class="dropdown-item" id="btn-gen-mail">Generar MAIL</button>
+                    <button type="button" class="dropdown-item" id="btn-gen-ambos">Generar Ambos</button>
                   </div>
                 </div>
               </div>
@@ -605,9 +547,9 @@
           <div class="preview-toolbar">
             <button class="btn btn--secondary" data-nav="nuevo-tramite">&#8592; Volver al Tr&aacute;mite</button>
             <div class="preview-actions">
-              <button class="btn btn--secondary">Generar MOI</button>
-              <button class="btn btn--secondary">Generar MAIL</button>
-              <button class="btn btn--primary">Generar Ambos</button>
+              <button class="btn btn--secondary" id="btn-preview-moi">Generar MOI</button>
+              <button class="btn btn--secondary" id="btn-preview-mail">Generar MAIL</button>
+              <button class="btn btn--primary"   id="btn-preview-ambos">Generar Ambos</button>
             </div>
           </div>
 
@@ -627,26 +569,26 @@
                   <div class="doc-title-block">
                     <p class="doc-institution">PREFECTURA NAVAL ARGENTINA</p>
                     <p class="doc-subtitle">MEMORANDO DE INFORMACI&Oacute;N OFICIAL</p>
-                    <p class="doc-rr">RR: <strong>&#8212;</strong></p>
+                    <p class="doc-rr">RR: <strong id="vp-moi-rr">&#8212;</strong></p>
                   </div>
                 </div>
                 <div class="doc-body">
                   <table class="doc-table">
-                    <tr><td>FM:</td><td>&#8212;</td></tr>
-                    <tr><td>TO:</td><td>&#8212;</td></tr>
-                    <tr><td>Motivo:</td><td>&#8212;</td></tr>
-                    <tr><td>Guardacostas:</td><td>&#8212;</td></tr>
-                    <tr><td>Autorizaci&oacute;n DPER:</td><td>&#8212;</td></tr>
+                    <tr><td>FM:</td><td id="vp-moi-fm">&#8212;</td></tr>
+                    <tr><td>TO:</td><td id="vp-moi-to">&#8212;</td></tr>
+                    <tr><td>Motivo:</td><td id="vp-moi-motivo">&#8212;</td></tr>
+                    <tr><td>Guardacostas:</td><td id="vp-moi-guardacostas">&#8212;</td></tr>
+                    <tr><td>Autorizaci&oacute;n DPER:</td><td id="vp-moi-dper">&#8212;</td></tr>
                   </table>
-                  <div class="doc-section-placeholder">
-                    [ Detalle de tramos, salidas y pasajeros ]
+                  <div id="vp-moi-tramos" style="font-size:13px; line-height:1.6">
+                    [ Detalle de tramos y pasajeros ]
                   </div>
                 </div>
                 <div class="doc-footer">
                   <div class="doc-firma-block">
                     <div class="firma-line"></div>
-                    <p>Firma Autorizada</p>
-                    <p class="firma-cargo">Cargo</p>
+                    <p id="vp-moi-firma-nombre">Firma Autorizada</p>
+                    <p class="firma-cargo" id="vp-moi-firma-cargo">Cargo</p>
                   </div>
                 </div>
               </div>
@@ -662,16 +604,16 @@
                 </div>
                 <div class="doc-body">
                   <table class="doc-table">
-                    <tr><td>Para:</td><td>&#8212;</td></tr>
-                    <tr><td>Asunto:</td><td>PPS / RR &#8212;</td></tr>
-                    <tr><td>Motivo:</td><td>&#8212;</td></tr>
-                    <tr><td>Guardacostas:</td><td>&#8212;</td></tr>
+                    <tr><td>Para:</td><td id="vp-mail-para">&#8212;</td></tr>
+                    <tr><td>Asunto:</td><td id="vp-mail-asunto">PPS / RR &#8212;</td></tr>
+                    <tr><td>Motivo:</td><td id="vp-mail-motivo">&#8212;</td></tr>
+                    <tr><td>Guardacostas:</td><td id="vp-mail-guardacostas">&#8212;</td></tr>
                   </table>
-                  <div class="doc-section-placeholder">
-                    [ Detalle de tramos, salidas y pasajeros ]
+                  <div id="vp-mail-tramos" style="font-size:13px; line-height:1.6; margin-bottom:16px">
+                    [ Detalle de tramos y pasajeros ]
                   </div>
                   <div class="doc-signature-mail">
-                    <p>&#8212;</p>
+                    <p id="vp-mail-firma">&#8212;</p>
                     <p class="text-secondary text-sm">Firma Autorizada</p>
                   </div>
                 </div>
@@ -690,56 +632,53 @@
             <div class="form-row">
               <div class="form-group">
                 <label class="label">RR</label>
-                <input type="text" class="input" placeholder="DDHHMM/MES/YYYY">
+                <input type="text" class="input" id="hist-rr" placeholder="DDHHMM/MES/YYYY">
               </div>
               <div class="form-group">
                 <label class="label">Fecha</label>
-                <input type="date" class="input">
+                <input type="date" class="input" id="hist-fecha">
               </div>
               <div class="form-group">
                 <label class="label">Guardacostas</label>
-                <select class="input select">
+                <select class="input" id="hist-guardacostas">
                   <option value="">Todos</option>
-                  <option>GC-195 GUARANI</option>
                 </select>
               </div>
               <div class="form-group">
                 <label class="label">Motivo</label>
-                <select class="input select">
+                <select class="input" id="hist-motivo">
                   <option value="">Todos</option>
-                  <option>RELEVO TRIPULACION</option>
-                  <option>TRASLADO</option>
                 </select>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label class="label">Pasajero</label>
-                <input type="text" class="input" placeholder="Nombre del pasajero">
+                <input type="text" class="input" id="hist-pasajero" placeholder="Nombre del pasajero">
               </div>
               <div class="form-group">
                 <label class="label">DNI</label>
-                <input type="text" class="input" placeholder="00.000.000">
+                <input type="text" class="input" id="hist-dni" placeholder="00000000">
               </div>
               <div class="form-group">
                 <label class="label">Usuario Generador</label>
-                <input type="text" class="input" placeholder="Nombre del usuario">
+                <input type="text" class="input" id="hist-usuario" placeholder="Nombre del usuario">
               </div>
               <div class="form-group">
                 <label class="label">N&uacute;mero DPER</label>
-                <input type="text" class="input" placeholder="000000">
+                <input type="text" class="input" id="hist-dper" placeholder="000000">
               </div>
             </div>
             <div class="filter-actions">
-              <button class="btn btn--secondary">Limpiar Filtros</button>
-              <button class="btn btn--primary">Buscar</button>
+              <button class="btn btn--secondary" id="btn-hist-limpiar">Limpiar Filtros</button>
+              <button class="btn btn--primary"   id="btn-hist-buscar">Buscar</button>
             </div>
           </div>
 
           <div class="card">
             <div class="card-header">
               <h2 class="card-title">Resultados</h2>
-              <span class="results-count text-secondary text-sm">0 resultados</span>
+              <span class="results-count text-secondary text-sm" id="hist-count">0 resultados</span>
             </div>
             <div class="table-wrapper">
               <table class="table">
@@ -753,7 +692,7 @@
                     <th>Acciones</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="tbody-historial">
                   <tr class="table-empty">
                     <td colspan="6">No hay tr&aacute;mites registrados.</td>
                   </tr>
@@ -844,14 +783,100 @@
     </div>
   </div>
 
+  <!-- ===== MODAL: LOGIN ===== -->
+  <div class="modal-backdrop" id="modal-login" style="display:none">
+    <div class="modal modal--login">
+      <div class="modal-header">
+        <div class="login-brand">
+          <span>&#9875;</span>
+          <div>
+            <strong>Sistema PPS</strong>
+            <small>Prefectura Naval Argentina</small>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="label">Usuario <span class="required">*</span></label>
+          <input type="text" class="input" id="login-termino" placeholder="Apellido, nombre o DNI" autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label class="label">Contrase&ntilde;a <span class="required">*</span></label>
+          <input type="password" class="input" id="login-password" placeholder="Contrase&ntilde;a" autocomplete="current-password">
+        </div>
+        <div class="login-error" id="login-error"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn--primary" id="btn-login" style="width:100%">Iniciar Sesi&oacute;n</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL: CAMBIO CONTRASEÑA OBLIGATORIO ===== -->
+  <div class="modal-backdrop" id="modal-cambio-password" style="display:none">
+    <div class="modal modal--sm">
+      <div class="modal-header">
+        <h3 class="modal-title">Cambio de Contrase&ntilde;a Requerido</h3>
+      </div>
+      <div class="modal-body">
+        <div class="password-info">
+          Debe cambiar su contrase&ntilde;a antes de continuar.<br>
+          La contrase&ntilde;a actual temporal es su <strong>DNI sin puntos</strong>.
+        </div>
+        <div class="form-group">
+          <label class="label">Contrase&ntilde;a Actual <span class="required">*</span></label>
+          <input type="password" class="input" id="cp-actual" placeholder="Contrase&ntilde;a temporal (DNI)" autocomplete="current-password">
+        </div>
+        <div class="form-group">
+          <label class="label">Nueva Contrase&ntilde;a <span class="required">*</span></label>
+          <input type="password" class="input" id="cp-nueva" placeholder="M&iacute;nimo 6 caracteres" autocomplete="new-password">
+        </div>
+        <div class="form-group">
+          <label class="label">Confirmar Nueva Contrase&ntilde;a <span class="required">*</span></label>
+          <input type="password" class="input" id="cp-confirmar" placeholder="Repetir contrase&ntilde;a" autocomplete="new-password">
+        </div>
+        <div class="login-error" id="cp-error"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn--primary" id="btn-cp-guardar" style="width:100%">Cambiar Contrase&ntilde;a y Continuar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL: AVISO SESIÓN POR EXPIRAR ===== -->
+  <div class="modal-backdrop" id="modal-session-warning" style="display:none">
+    <div class="modal modal--sm">
+      <div class="modal-header">
+        <h3 class="modal-title">Sesi&oacute;n por Expirar</h3>
+      </div>
+      <div class="session-warning-body">
+        <div class="session-warning-icon">&#9200;</div>
+        <p>Su sesi&oacute;n cerrar&aacute; autom&aacute;ticamente por inactividad en:</p>
+        <span class="session-countdown" id="session-countdown">5:00</span>
+        <p class="text-secondary text-sm">Haga clic en continuar para permanecer conectado.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn--primary" id="btn-continuar-sesion" style="width:100%">Continuar Sesi&oacute;n</button>
+      </div>
+    </div>
+  </div>
+
   <script src="src/utils/utils.js"></script>
+  <script src="src/services/validaciones.js"></script>
   <script src="src/storage/api.js"></script>
   <script src="src/storage/personalStorage.js"></script>
   <script src="src/storage/usuariosStorage.js"></script>
   <script src="src/storage/catalogosStorage.js"></script>
+  <script src="src/storage/tramitesStorage.js"></script>
+  <script src="src/storage/configStorage.js"></script>
+  <script src="src/storage/auditoriaStorage.js"></script>
+  <script src="src/modules/authModule.js"></script>
   <script src="src/modules/personalModule.js"></script>
   <script src="src/modules/usuariosModule.js"></script>
   <script src="src/modules/catalogosModule.js"></script>
+  <script src="src/modules/configModule.js"></script>
+  <script src="src/modules/tramitesModule.js"></script>
+  <script src="src/modules/historialModule.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
