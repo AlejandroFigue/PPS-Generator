@@ -97,6 +97,19 @@
                 <div class="stat-label">Tr&aacute;mites Generados</div>
               </div>
             </div>
+            <div class="stat-card stat-card--integrity">
+              <div class="stat-icon stat-icon--green">&#128274;</div>
+              <div class="stat-body">
+                <div class="stat-integrity-row">
+                  <span class="integrity-count integrity-count--valido" id="stat-docs-validos">&#8212;</span>
+                  <span class="integrity-count-label">&#237;ntegros</span>
+                  <span class="integrity-count integrity-count--alterado" id="stat-docs-alterados">&#8212;</span>
+                  <span class="integrity-count-label">alterados</span>
+                </div>
+                <div class="stat-label">Integridad Documental</div>
+                <div class="stat-ultima-verif">&#218;lt. verif.: <span id="stat-ultima-verificacion">&#8212;</span></div>
+              </div>
+            </div>
           </div>
 
           <div class="card">
@@ -689,12 +702,13 @@
                     <th>Guardacostas</th>
                     <th>Motivo</th>
                     <th>Usuario</th>
+                    <th>Integridad</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody id="tbody-historial">
                   <tr class="table-empty">
-                    <td colspan="6">No hay tr&aacute;mites registrados.</td>
+                    <td colspan="7">No hay tr&aacute;mites registrados.</td>
                   </tr>
                 </tbody>
               </table>
@@ -851,6 +865,7 @@
         <button class="modal-close" id="btn-doc-preview-cerrar">&#10005;</button>
       </div>
       <div class="modal-body modal-body--doc">
+        <div id="doc-preview-integrity-badge" class="integrity-badge" style="display:none"></div>
         <iframe id="doc-preview-iframe" title="Vista previa del documento" sandbox="allow-same-origin"></iframe>
       </div>
       <div class="modal-footer">
@@ -879,6 +894,7 @@
   </div>
 
   <script src="src/utils/utils.js"></script>
+  <script src="src/utils/hashUtils.js"></script>
   <script src="src/services/validaciones.js"></script>
   <script src="src/storage/api.js"></script>
   <script src="src/storage/personalStorage.js"></script>

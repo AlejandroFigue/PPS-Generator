@@ -42,34 +42,60 @@ var historialModule = (function () {
     if (el) el.textContent = n + (n === 1 ? ' resultado' : ' resultados');
   }
 
+  function _badgeIntegridad(doc, tipo) {
+    if (!doc || !doc.archivo) return '<span class="integrity-pill integrity-pill--none">—</span>';
+    var ei = doc.estadoIntegridad;
+    var onClick = 'onclick="documentosModule.verDocumento(\'' +
+      (doc._tramiteId || '') + '\',\'' + tipo + '\')"';
+
+    if (ei === 'VALIDO') {
+      return '<span class="integrity-pill integrity-pill--valido" ' + onClick +
+        ' title="Ver y verificar ' + tipo + '">✔ ' + tipo + '</span>';
+    }
+    if (ei === 'ALTERADO') {
+      return '<span class="integrity-pill integrity-pill--alterado" ' + onClick +
+        ' title="Ver y verificar ' + tipo + '">✖ ' + tipo + '</span>';
+    }
+    return '<span class="integrity-pill integrity-pill--sin-verificar" ' + onClick +
+      ' title="Ver ' + tipo + '">— ' + tipo + '</span>';
+  }
+
   function _renderTabla(lista) {
     var tbody = document.getElementById('tbody-historial');
     if (!tbody) return;
     if (!lista || lista.length === 0) {
-      tbody.innerHTML = '<tr class="table-empty"><td colspan="6">No hay trámites registrados.</td></tr>';
+      tbody.innerHTML =
+        '<tr class="table-empty"><td colspan="7">No hay trámites registrados.</td></tr>';
       return;
     }
     var usuarios = usuariosModule.getTodos();
     tbody.innerHTML = lista.map(function (t) {
-      var u = usuarios.find(function (x) { return x.id === t.usuarioGeneradorId; });
+      var u      = usuarios.find(function (x) { return x.id === t.usuarioGeneradorId; });
       var nombre = u ? u.apellidoNombre : (t.usuarioGeneradorId || '—');
       var fecha  = t.fechaCreacion ? t.fechaCreacion.substring(0, 10) : '—';
-      var docs    = t.documentos || {};
-      var btnMoi  = docs.moi  ? '<button class="btn btn--xs btn--success" ' +
-        'onclick="documentosModule.verDocumento(\'' + t.id + '\',\'MOI\')">VER MOI</button>' : '';
-      var btnMail = docs.mail ? '<button class="btn btn--xs btn--success" ' +
-        'onclick="documentosModule.verDocumento(\'' + t.id + '\',\'MAIL\')">VER MAIL</button>' : '';
+      var docs   = t.documentos || {};
+
+      var moiDoc  = docs.moi  ? Object.assign({}, docs.moi,  { _tramiteId: t.id }) : null;
+      var mailDoc = docs.mail ? Object.assign({}, docs.mail, { _tramiteId: t.id }) : null;
+
+      var integridad =
+        '<div class="integrity-pills">' +
+          _badgeIntegridad(moiDoc,  'MOI')  +
+          _badgeIntegridad(mailDoc, 'MAIL') +
+        '</div>';
+
       return '<tr>' +
         '<td><strong>' + esc(t.rr || '—') + '</strong></td>' +
         '<td>' + esc(fecha) + '</td>' +
         '<td>' + esc(t.guardacostas || '—') + '</td>' +
         '<td>' + esc(t.motivo || '—') + '</td>' +
         '<td>' + esc(nombre) + '</td>' +
+        '<td>' + integridad + '</td>' +
         '<td class="actions-cell">' +
           '<button class="btn btn--sm btn--secondary" ' +
             'onclick="tramitesModule.cargarParaEdicion(\'' + t.id + '\')">Ver / Editar</button>' +
-          btnMoi + btnMail +
-        '</td></tr>';
+        '</td>' +
+        '</tr>';
     }).join('');
   }
 

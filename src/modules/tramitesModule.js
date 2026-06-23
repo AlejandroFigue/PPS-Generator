@@ -61,6 +61,7 @@ var tramitesModule = (function () {
     return tramitesStorage.getAll().then(function (data) {
       _lista = Array.isArray(data) ? data : [];
       _actualizarStatInicio();
+      _actualizarStatIntegridad();
       _renderUltimosTramites();
     });
   }
@@ -70,6 +71,40 @@ var tramitesModule = (function () {
   function _actualizarStatInicio() {
     var el = document.getElementById('stat-tramites');
     if (el) el.textContent = _lista.length;
+  }
+
+  function _actualizarStatIntegridad() {
+    var validos = 0, alterados = 0;
+    _lista.forEach(function (t) {
+      if (!t.documentos) return;
+      ['moi', 'mail'].forEach(function (tipo) {
+        var doc = t.documentos[tipo];
+        if (!doc) return;
+        if (doc.estadoIntegridad === 'VALIDO')   validos++;
+        if (doc.estadoIntegridad === 'ALTERADO') alterados++;
+      });
+    });
+    var elV = document.getElementById('stat-docs-validos');
+    var elA = document.getElementById('stat-docs-alterados');
+    if (elV) elV.textContent = validos;
+    if (elA) elA.textContent = alterados;
+
+    var elU = document.getElementById('stat-ultima-verificacion');
+    if (elU) {
+      auditoriaStorage.getAll().then(function (lista) {
+        if (!Array.isArray(lista)) return;
+        var eventos = lista.filter(function (e) { return e.accion === 'VERIFICAR_INTEGRIDAD'; });
+        if (eventos.length === 0) return;
+        var ult = eventos[eventos.length - 1];
+        if (!ult.fecha) return;
+        var d   = new Date(ult.fecha);
+        var dd  = String(d.getDate()).padStart(2, '0');
+        var mm  = String(d.getMonth() + 1).padStart(2, '0');
+        var hh  = String(d.getHours()).padStart(2, '0');
+        var min = String(d.getMinutes()).padStart(2, '0');
+        elU.textContent = dd + '/' + mm + '/' + d.getFullYear() + ' ' + hh + ':' + min;
+      }).catch(function () {});
+    }
   }
 
   function _renderUltimosTramites() {

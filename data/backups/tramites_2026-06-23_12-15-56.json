@@ -35,18 +35,12 @@
       "moi": {
         "archivo": "TRA1782159655637_MOI.html",
         "fechaGeneracion": "2026-06-23T13:40:36",
-        "generadoPorId": "USR000",
-        "hash": "d16627b20ba88cda7fc9407c3b0211e48c2a408ba34cf3282d55db64ffd947e6",
-        "algoritmo": "SHA-256",
-        "estadoIntegridad": "VALIDO"
+        "generadoPorId": "USR000"
       },
       "mail": {
         "archivo": "TRA1782159655637_MAIL.html",
         "fechaGeneracion": "2026-06-23T13:40:36",
-        "generadoPorId": "USR000",
-        "hash": "6c17aa7bcd1341432888d941653224e24719f216baeb72e4c14c71f0a11116f0",
-        "algoritmo": "SHA-256",
-        "estadoIntegridad": "VALIDO"
+        "generadoPorId": "USR000"
       }
     }
   },

@@ -146,7 +146,7 @@ function migrateData() {
   var audFile = path.join(DATA_DIR, 'auditoria.json');
   if (!fs.existsSync(audFile)) fs.writeFileSync(audFile, '[]', 'utf8');
 
-  /* Migrar tramites: agregar documentos si no existen */
+  /* Migrar tramites: agregar documentos e integridad */
   var tramites     = readJson('tramites');
   var tramChanged  = false;
   if (Array.isArray(tramites)) {
@@ -155,6 +155,29 @@ function migrateData() {
         t.documentos = { moi: null, mail: null };
         tramChanged  = true;
       }
+      ['moi', 'mail'].forEach(function (docTipo) {
+        var doc = t.documentos[docTipo];
+        if (doc && doc.archivo && doc.hash === undefined) {
+          var fp = path.join(DOCS_DIR, doc.archivo);
+          if (fs.existsSync(fp)) {
+            var content          = fs.readFileSync(fp, 'utf8');
+            doc.hash             = sha256(content);
+            doc.algoritmo        = 'SHA-256';
+            doc.estadoIntegridad = 'VALIDO';
+            registrarAuditoria({
+              accion:    'HASH_REGENERADO',
+              usuarioId: 'SISTEMA',
+              tramiteId: t.id,
+              detalle:   'Migracion SHA-256: ' + docTipo.toUpperCase() + ' | archivo: ' + doc.archivo
+            });
+          } else {
+            doc.hash             = null;
+            doc.algoritmo        = null;
+            doc.estadoIntegridad = 'NO_VERIFICADO';
+          }
+          tramChanged = true;
+        }
+      });
     });
     if (tramChanged) writeJson('tramites', tramites);
   }
@@ -348,6 +371,8 @@ function handleDocumentosGenerar(req, res) {
     var usuarioId = (data.usuarioId || 'SISTEMA').trim();
     var htmlMoi   = data.htmlMoi  || null;
     var htmlMail  = data.htmlMail || null;
+    var hashMoi   = data.hashMoi  || null;
+    var hashMail  = data.hashMail || null;
 
     if (!tramiteId || !tipo)
       return jsonRes(res, 400, { error: 'Faltan tramiteId o tipo.' });
@@ -372,12 +397,19 @@ function handleDocumentosGenerar(req, res) {
       var esRegenMoi = !!(t.documentos.moi && t.documentos.moi.archivo);
 
       fs.writeFileSync(path.join(DOCS_DIR, nombreMoi), htmlMoi, 'utf8');
-      t.documentos.moi = { archivo: nombreMoi, fechaGeneracion: now, generadoPorId: usuarioId };
-      archivoMoi       = nombreMoi;
+      t.documentos.moi = {
+        archivo:          nombreMoi,
+        fechaGeneracion:  now,
+        generadoPorId:    usuarioId,
+        hash:             hashMoi,
+        algoritmo:        hashMoi ? 'SHA-256' : null,
+        estadoIntegridad: hashMoi ? 'VALIDO'  : 'NO_VERIFICADO'
+      };
+      archivoMoi = nombreMoi;
 
       registrarAuditoria({ usuarioId: usuarioId,
         accion:  esRegenMoi ? 'REGENERAR_MOI' : 'GENERAR_MOI',
-        detalle: 'RR: ' + t.rr + ' | ' + nombreMoi });
+        detalle: 'RR: ' + t.rr + ' | ' + nombreMoi + (hashMoi ? ' | hash: ' + hashMoi.substring(0, 16) + '...' : '') });
     }
 
     if ((tipo === 'MAIL' || tipo === 'AMBOS') && htmlMail) {
@@ -385,12 +417,19 @@ function handleDocumentosGenerar(req, res) {
       var esRegenMail = !!(t.documentos.mail && t.documentos.mail.archivo);
 
       fs.writeFileSync(path.join(DOCS_DIR, nombreMail), htmlMail, 'utf8');
-      t.documentos.mail = { archivo: nombreMail, fechaGeneracion: now, generadoPorId: usuarioId };
-      archivoMail        = nombreMail;
+      t.documentos.mail = {
+        archivo:          nombreMail,
+        fechaGeneracion:  now,
+        generadoPorId:    usuarioId,
+        hash:             hashMail,
+        algoritmo:        hashMail ? 'SHA-256' : null,
+        estadoIntegridad: hashMail ? 'VALIDO'  : 'NO_VERIFICADO'
+      };
+      archivoMail = nombreMail;
 
       registrarAuditoria({ usuarioId: usuarioId,
         accion:  esRegenMail ? 'REGENERAR_MAIL' : 'GENERAR_MAIL',
-        detalle: 'RR: ' + t.rr + ' | ' + nombreMail });
+        detalle: 'RR: ' + t.rr + ' | ' + nombreMail + (hashMail ? ' | hash: ' + hashMail.substring(0, 16) + '...' : '') });
     }
 
     tramites[idx] = t;

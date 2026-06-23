@@ -65,6 +65,20 @@ var documentosModule = (function () {
       });
   }
 
+  /* ── Extraer HTML limpio (sin sello de integridad) ────────── */
+
+  function _extraerHtmlLimpio(html) {
+    var ini = html.indexOf('<!-- PPS:INTEGRITY:BEGIN -->');
+    var fin = html.indexOf('<!-- PPS:INTEGRITY:END -->');
+    if (ini !== -1 && fin !== -1) {
+      return html.substring(0, ini) +
+             html.substring(fin + '<!-- PPS:INTEGRITY:END -->'.length);
+    }
+    return html;
+  }
+
+  /* ── Ver documento histórico con verificación de integridad ── */
+
   function verDocumento(tramiteId, tipo) {
     var lista = tramitesModule.getLista();
     var t     = lista.find(function (x) { return x.id === tramiteId; });
@@ -73,11 +87,52 @@ var documentosModule = (function () {
     var doc = tipo === 'MOI' ? t.documentos.moi : t.documentos.mail;
     if (!doc || !doc.archivo) { alert('Documento aún no generado.'); return; }
 
-    auditoriaStorage.registrar(
-      'VER_' + tipo,
-      'RR: ' + t.rr + ' | Archivo: ' + doc.archivo
-    );
-    pdfExporter.verDocumentoHistorico(doc.archivo);
+    fetch('/data/documentos/' + encodeURIComponent(doc.archivo))
+      .then(function (r) {
+        if (!r.ok) { alert('Archivo no encontrado en disco.'); return null; }
+        return r.text();
+      })
+      .then(function (html) {
+        if (!html) return;
+
+        if (!doc.hash) {
+          auditoriaStorage.registrar(
+            'VERIFICAR_INTEGRIDAD',
+            'RR: ' + t.rr + ' | ' + doc.archivo + ' | Estado: NO_VERIFICADO'
+          );
+          pdfExporter.verDocumentoHistorico(doc.archivo, 'NO_VERIFICADO');
+          return;
+        }
+
+        var cleanHtml = _extraerHtmlLimpio(html);
+
+        hashUtils.verificarHash(cleanHtml, doc.hash).then(function (resultado) {
+          var esValido = resultado.valido;
+
+          auditoriaStorage.registrar(
+            esValido ? 'VERIFICAR_INTEGRIDAD' : 'DOCUMENTO_ALTERADO',
+            'RR: ' + t.rr + ' | ' + doc.archivo +
+            ' | Hash actual: ' + resultado.hashActual.substring(0, 16) + '...' +
+            ' | Estado: ' + (esValido ? 'VALIDO' : 'ALTERADO')
+          );
+
+          pdfExporter.verDocumentoHistorico(
+            doc.archivo,
+            esValido ? 'VALIDO' : 'ALTERADO'
+          );
+
+          if (!esValido) {
+            alert(
+              'ALERTA DE INTEGRIDAD\n\n' +
+              'El documento ha sido modificado después de su generación.\n' +
+              'El archivo en disco no coincide con el hash registrado en el sistema.'
+            );
+          }
+        });
+      })
+      .catch(function () {
+        alert('Error al verificar el documento.');
+      });
   }
 
   return { generarMoi, generarMail, generarAmbos, confirmarGeneracion, verDocumento };
