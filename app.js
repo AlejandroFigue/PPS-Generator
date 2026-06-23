@@ -210,14 +210,6 @@ function _iniciarApp() {
   });
 }
 
-function _auditarGeneracion(tipo) {
-  var rrEl = document.getElementById('vp-moi-rr');
-  var rr   = rrEl ? rrEl.textContent.trim() : (document.getElementById('rr') ? document.getElementById('rr').value.trim() : 'N/D');
-  auditoriaStorage.registrar(
-    'GENERAR_' + tipo,
-    'RR: ' + (rr || 'N/D') + ' | Tipo: ' + tipo + ' | ' + new Date().toISOString().substring(0, 19)
-  );
-}
 
 /* ── Inicialización ───────────────────────────────────────── */
 (function init() {
@@ -425,30 +417,41 @@ function _auditarGeneracion(tipo) {
     if (el) el.addEventListener('change', function () { tramitesModule._actualizarResumen(); });
   });
 
-  /* ── Generación documental (auditoría) ──────────────────── */
+  /* ── Generación documental ───────────────────────────────── */
   document.getElementById('btn-generar-ambos').addEventListener('click', function () {
-    _auditarGeneracion('MOI');
-    _auditarGeneracion('MAIL');
+    documentosModule.generarAmbos();
   });
   document.getElementById('btn-gen-moi').addEventListener('click', function () {
-    _auditarGeneracion('MOI');
+    documentosModule.generarMoi();
   });
   document.getElementById('btn-gen-mail').addEventListener('click', function () {
-    _auditarGeneracion('MAIL');
+    documentosModule.generarMail();
   });
   document.getElementById('btn-gen-ambos').addEventListener('click', function () {
-    _auditarGeneracion('MOI');
-    _auditarGeneracion('MAIL');
+    documentosModule.generarAmbos();
   });
   document.getElementById('btn-preview-moi').addEventListener('click', function () {
-    _auditarGeneracion('MOI');
+    documentosModule.generarMoi();
   });
   document.getElementById('btn-preview-mail').addEventListener('click', function () {
-    _auditarGeneracion('MAIL');
+    documentosModule.generarMail();
   });
   document.getElementById('btn-preview-ambos').addEventListener('click', function () {
-    _auditarGeneracion('MOI');
-    _auditarGeneracion('MAIL');
+    documentosModule.generarAmbos();
+  });
+
+  /* ── Modal vista previa documento ───────────────────────── */
+  document.getElementById('btn-doc-preview-confirmar').addEventListener('click', function () {
+    documentosModule.confirmarGeneracion();
+  });
+  document.getElementById('btn-doc-preview-cancelar').addEventListener('click', function () {
+    pdfExporter.cerrar();
+  });
+  document.getElementById('btn-doc-preview-cerrar').addEventListener('click', function () {
+    pdfExporter.cerrar();
+  });
+  document.getElementById('modal-doc-preview').addEventListener('click', function (e) {
+    if (e.target === this) pdfExporter.cerrar();
   });
 
   /* ── Historial ──────────────────────────────────────────── */

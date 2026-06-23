@@ -7,8 +7,10 @@ var PORT        = 3000;
 var ROOT        = __dirname;
 var DATA_DIR    = path.join(ROOT, 'data');
 var BACKUPS_DIR = path.join(DATA_DIR, 'backups');
+var DOCS_DIR    = path.join(DATA_DIR, 'documentos');
 
 if (!fs.existsSync(BACKUPS_DIR)) fs.mkdirSync(BACKUPS_DIR, { recursive: true });
+if (!fs.existsSync(DOCS_DIR))    fs.mkdirSync(DOCS_DIR,    { recursive: true });
 
 var MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -143,6 +145,19 @@ function migrateData() {
 
   var audFile = path.join(DATA_DIR, 'auditoria.json');
   if (!fs.existsSync(audFile)) fs.writeFileSync(audFile, '[]', 'utf8');
+
+  /* Migrar tramites: agregar documentos si no existen */
+  var tramites     = readJson('tramites');
+  var tramChanged  = false;
+  if (Array.isArray(tramites)) {
+    tramites.forEach(function (t) {
+      if (t.documentos === undefined) {
+        t.documentos = { moi: null, mail: null };
+        tramChanged  = true;
+      }
+    });
+    if (tramChanged) writeJson('tramites', tramites);
+  }
 }
 
 /* ── Handlers auth ────────────────────────────────────────── */
@@ -322,6 +337,69 @@ function handleAuthResetPassword(req, res) {
   });
 }
 
+/* ── Handler documentos/generar ──────────────────────────── */
+
+function handleDocumentosGenerar(req, res) {
+  readBody(req, function (err, data) {
+    if (err) return jsonRes(res, 400, { error: 'Datos inválidos.' });
+
+    var tramiteId = (data.tramiteId || '').trim();
+    var tipo      = (data.tipo      || '').trim();
+    var usuarioId = (data.usuarioId || 'SISTEMA').trim();
+    var htmlMoi   = data.htmlMoi  || null;
+    var htmlMail  = data.htmlMail || null;
+
+    if (!tramiteId || !tipo)
+      return jsonRes(res, 400, { error: 'Faltan tramiteId o tipo.' });
+
+    var TIPOS_VALIDOS = ['MOI', 'MAIL', 'AMBOS'];
+    if (TIPOS_VALIDOS.indexOf(tipo) === -1)
+      return jsonRes(res, 400, { ok: false, error: 'Tipo de documento inválido.' });
+
+    var tramites = readJson('tramites');
+    var idx      = tramites.findIndex(function (t) { return t.id === tramiteId; });
+    if (idx === -1) return jsonRes(res, 404, { error: 'Trámite no encontrado.' });
+
+    var t = tramites[idx];
+    if (!t.documentos) t.documentos = { moi: null, mail: null };
+
+    var now          = nowIso();
+    var archivoMoi   = null;
+    var archivoMail  = null;
+
+    if ((tipo === 'MOI' || tipo === 'AMBOS') && htmlMoi) {
+      var nombreMoi  = tramiteId + '_MOI.html';
+      var esRegenMoi = !!(t.documentos.moi && t.documentos.moi.archivo);
+
+      fs.writeFileSync(path.join(DOCS_DIR, nombreMoi), htmlMoi, 'utf8');
+      t.documentos.moi = { archivo: nombreMoi, fechaGeneracion: now, generadoPorId: usuarioId };
+      archivoMoi       = nombreMoi;
+
+      registrarAuditoria({ usuarioId: usuarioId,
+        accion:  esRegenMoi ? 'REGENERAR_MOI' : 'GENERAR_MOI',
+        detalle: 'RR: ' + t.rr + ' | ' + nombreMoi });
+    }
+
+    if ((tipo === 'MAIL' || tipo === 'AMBOS') && htmlMail) {
+      var nombreMail  = tramiteId + '_MAIL.html';
+      var esRegenMail = !!(t.documentos.mail && t.documentos.mail.archivo);
+
+      fs.writeFileSync(path.join(DOCS_DIR, nombreMail), htmlMail, 'utf8');
+      t.documentos.mail = { archivo: nombreMail, fechaGeneracion: now, generadoPorId: usuarioId };
+      archivoMail        = nombreMail;
+
+      registrarAuditoria({ usuarioId: usuarioId,
+        accion:  esRegenMail ? 'REGENERAR_MAIL' : 'GENERAR_MAIL',
+        detalle: 'RR: ' + t.rr + ' | ' + nombreMail });
+    }
+
+    tramites[idx] = t;
+    writeJson('tramites', tramites);
+
+    return jsonRes(res, 200, { ok: true, archivoMoi: archivoMoi, archivoMail: archivoMail });
+  });
+}
+
 /* ── Servidor estático ────────────────────────────────────── */
 
 function serveStatic(res, filePath) {
@@ -352,6 +430,10 @@ http.createServer(function (req, res) {
     if (action === 'cambiar-password') return handleAuthCambiarPassword(req, res);
     if (action === 'reset-password')   return handleAuthResetPassword(req, res);
     return jsonRes(res, 404, { error: 'Acción no encontrada.' });
+  }
+
+  if (urlPath === '/api/documentos/generar' && req.method === 'POST') {
+    return handleDocumentosGenerar(req, res);
   }
 
   if (urlPath === '/api/auditoria' && req.method === 'POST') {

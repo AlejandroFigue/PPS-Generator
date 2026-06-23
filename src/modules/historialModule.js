@@ -54,6 +54,11 @@ var historialModule = (function () {
       var u = usuarios.find(function (x) { return x.id === t.usuarioGeneradorId; });
       var nombre = u ? u.apellidoNombre : (t.usuarioGeneradorId || '—');
       var fecha  = t.fechaCreacion ? t.fechaCreacion.substring(0, 10) : '—';
+      var docs    = t.documentos || {};
+      var btnMoi  = docs.moi  ? '<button class="btn btn--xs btn--success" ' +
+        'onclick="documentosModule.verDocumento(\'' + t.id + '\',\'MOI\')">VER MOI</button>' : '';
+      var btnMail = docs.mail ? '<button class="btn btn--xs btn--success" ' +
+        'onclick="documentosModule.verDocumento(\'' + t.id + '\',\'MAIL\')">VER MAIL</button>' : '';
       return '<tr>' +
         '<td><strong>' + esc(t.rr || '—') + '</strong></td>' +
         '<td>' + esc(fecha) + '</td>' +
@@ -63,6 +68,7 @@ var historialModule = (function () {
         '<td class="actions-cell">' +
           '<button class="btn btn--sm btn--secondary" ' +
             'onclick="tramitesModule.cargarParaEdicion(\'' + t.id + '\')">Ver / Editar</button>' +
+          btnMoi + btnMail +
         '</td></tr>';
     }).join('');
   }

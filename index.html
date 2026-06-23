@@ -557,7 +557,7 @@
 
             <!-- Panel MOI -->
             <div class="preview-panel">
-              <div class="preview-panel-label">MOI &mdash; Memorando de Informaci&oacute;n Oficial</div>
+              <div class="preview-panel-label">MOI &mdash; Mensaje Oficial Interno</div>
               <div class="preview-document">
                 <div class="doc-header">
                   <div class="doc-stamp-area">
@@ -843,6 +843,23 @@
     </div>
   </div>
 
+  <!-- ===== MODAL: VISTA PREVIA DOCUMENTO ===== -->
+  <div class="modal-backdrop" id="modal-doc-preview" style="display:none">
+    <div class="modal modal--doc-preview">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-doc-preview-title">Vista Previa</h3>
+        <button class="modal-close" id="btn-doc-preview-cerrar">&#10005;</button>
+      </div>
+      <div class="modal-body modal-body--doc">
+        <iframe id="doc-preview-iframe" title="Vista previa del documento" sandbox="allow-same-origin"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn--secondary" id="btn-doc-preview-cancelar">Cancelar</button>
+        <button class="btn btn--primary"   id="btn-doc-preview-confirmar">Confirmar y Descargar</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== MODAL: AVISO SESIÓN POR EXPIRAR ===== -->
   <div class="modal-backdrop" id="modal-session-warning" style="display:none">
     <div class="modal modal--sm">
@@ -877,6 +894,11 @@
   <script src="src/modules/configModule.js"></script>
   <script src="src/modules/tramitesModule.js"></script>
   <script src="src/modules/historialModule.js"></script>
+  <script src="src/pdf/documentoBuilder.js"></script>
+  <script src="src/pdf/moiTemplate.js"></script>
+  <script src="src/pdf/mailTemplate.js"></script>
+  <script src="src/pdf/pdfExporter.js"></script>
+  <script src="src/modules/documentosModule.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

@@ -85,6 +85,11 @@ var tramitesModule = (function () {
       var u      = usuarios.find(function (x) { return x.id === t.usuarioGeneradorId; });
       var nombre = u ? u.apellidoNombre : (t.usuarioGeneradorId || '—');
       var fecha  = t.fechaCreacion ? t.fechaCreacion.substring(0, 10) : '—';
+      var docs = t.documentos || {};
+      var btnMoi  = docs.moi  ? '<button class="btn btn--xs btn--success" ' +
+        'onclick="documentosModule.verDocumento(\'' + t.id + '\',\'MOI\')">MOI</button>' : '';
+      var btnMail = docs.mail ? '<button class="btn btn--xs btn--success" ' +
+        'onclick="documentosModule.verDocumento(\'' + t.id + '\',\'MAIL\')">MAIL</button>' : '';
       return '<tr>' +
         '<td><strong>' + esc(t.rr || '—') + '</strong></td>' +
         '<td>' + esc(t.motivo || '—') + '</td>' +
@@ -94,6 +99,7 @@ var tramitesModule = (function () {
         '<td class="actions-cell">' +
           '<button class="btn btn--sm btn--secondary" ' +
             'onclick="tramitesModule.cargarParaEdicion(\'' + t.id + '\')">Ver / Editar</button>' +
+          btnMoi + btnMail +
         '</td></tr>';
     }).join('');
   }
@@ -473,11 +479,17 @@ var tramitesModule = (function () {
     navigateTo('nuevo-tramite');
   }
 
+  function getTramiteEditando() {
+    if (!_editandoId) return null;
+    return _lista.find(function (t) { return t.id === _editandoId; }) || null;
+  }
+
   return {
     cargar, getLista, iniciarFormulario, nuevoBorrador,
     agregarTramo, eliminarTramo,
     _agregarPasajero, _quitarPasajero,
     _actualizarResumen,
-    guardar, verVistaPrevia, cargarParaEdicion
+    guardar, verVistaPrevia, cargarParaEdicion,
+    getTramiteEditando
   };
 })();

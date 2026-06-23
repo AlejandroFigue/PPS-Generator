@@ -1,1 +1,86 @@
-[]
+[
+  {
+    "usuarioId": "USR000",
+    "accion": "LOGIN",
+    "detalle": "ADMIN SISTEMA",
+    "id": "AUD0001",
+    "fecha": "2026-06-23T01:52:42"
+  },
+  {
+    "usuarioId": "USR000",
+    "accion": "CREAR_TRAMITE",
+    "detalle": "RR 222305/JUN/2026",
+    "id": "AUD0002",
+    "fecha": "2026-06-23T01:55:18"
+  },
+  {
+    "usuarioId": "USR001",
+    "accion": "GENERAR_MOI",
+    "detalle": "RR: 221617/JUN/2026 | TRA1782159655637_MOI.html",
+    "id": "AUD0003",
+    "fecha": "2026-06-23T02:53:15"
+  },
+  {
+    "usuarioId": "USR000",
+    "accion": "LOGOUT_TIMEOUT",
+    "detalle": "Expiración por inactividad",
+    "id": "AUD0004",
+    "fecha": "2026-06-23T02:55:25"
+  },
+  {
+    "usuarioId": "USR000",
+    "accion": "GENERAR_MOI",
+    "detalle": "RR: 221617/JUN/2026 | TRA1782159655637_MOI.html",
+    "id": "AUD0005",
+    "fecha": "2026-06-23T12:11:19"
+  },
+  {
+    "usuarioId": "USR000",
+    "accion": "GENERAR_MAIL",
+    "detalle": "RR: 221617/JUN/2026 | TRA1782159655637_MAIL.html",
+    "id": "AUD0006",
+    "fecha": "2026-06-23T12:11:20"
+  },
+  {
+    "usuarioId": "USR000",
+    "accion": "REGENERAR_MOI",
+    "detalle": "RR: 221617/JUN/2026 | TRA1782159655637_MOI.html",
+    "id": "AUD0007",
+    "fecha": "2026-06-23T12:11:20"
+  },
+  {
+    "usuarioId": "USR000",
+    "accion": "REGENERAR_MAIL",
+    "detalle": "RR: 221617/JUN/2026 | TRA1782159655637_MAIL.html",
+    "id": "AUD0008",
+    "fecha": "2026-06-23T12:11:20"
+  },
+  {
+    "usuarioId": "USR001",
+    "accion": "REGENERAR_MOI",
+    "detalle": "RR: 221617/JUN/2026 | TRA1782159655637_MOI.html",
+    "id": "AUD0009",
+    "fecha": "2026-06-23T12:16:09"
+  },
+  {
+    "usuarioId": "USR001",
+    "accion": "REGENERAR_MAIL",
+    "detalle": "RR: 221617/JUN/2026 | TRA1782159655637_MAIL.html",
+    "id": "AUD0010",
+    "fecha": "2026-06-23T12:16:11"
+  },
+  {
+    "usuarioId": "USR001",
+    "accion": "REGENERAR_MOI",
+    "detalle": "RR: 221617/JUN/2026 | TRA1782159655637_MOI.html",
+    "id": "AUD0011",
+    "fecha": "2026-06-23T12:16:11"
+  },
+  {
+    "usuarioId": "USR001",
+    "accion": "REGENERAR_MAIL",
+    "detalle": "RR: 221617/JUN/2026 | TRA1782159655637_MAIL.html",
+    "id": "AUD0012",
+    "fecha": "2026-06-23T12:16:11"
+  }
+]

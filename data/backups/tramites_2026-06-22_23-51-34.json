@@ -30,19 +30,7 @@
           }
         ]
       }
-    ],
-    "documentos": {
-      "moi": {
-        "archivo": "TRA1782159655637_MOI.html",
-        "fechaGeneracion": "2026-06-23T12:16:11",
-        "generadoPorId": "USR001"
-      },
-      "mail": {
-        "archivo": "TRA1782159655637_MAIL.html",
-        "fechaGeneracion": "2026-06-23T12:16:11",
-        "generadoPorId": "USR001"
-      }
-    }
+    ]
   },
   {
     "id": "TRA1782179718202",
@@ -72,10 +60,6 @@
           }
         ]
       }
-    ],
-    "documentos": {
-      "moi": null,
-      "mail": null
-    }
+    ]
   }
 ]
